@@ -1,4 +1,4 @@
-import { ApolloClient, ApolloLink, ApolloProvider, HttpLink, InMemoryCache } from "@apollo/client";
+import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache } from "@apollo/client";
 import React from "react";
 import { ThemeSwitcherProvider } from "react-css-theme-switcher";
 import ReactDOM from "react-dom";
@@ -12,29 +12,17 @@ const themes = {
 
 const prevTheme = window.localStorage.getItem("theme");
 
-const subgraphUri = "http://localhost:8000/subgraphs/name/scaffold-eth/your-contract";
 const watcherUri = process?.env?.REACT_APP_WATCHER_URI;
 
-const subgraphEndpoint = new HttpLink({
-  uri: subgraphUri,
-});
-const watcherEndpoint = new HttpLink({
-  uri: watcherUri,
-});
-
 const client = new ApolloClient({
-  link: ApolloLink.split(
-    operation => operation.getContext().clientName === "watcher",
-    watcherEndpoint,
-    subgraphEndpoint,
-  ),
+  uri: watcherUri,
   cache: new InMemoryCache(),
 });
 
 ReactDOM.render(
   <ApolloProvider client={client}>
     <ThemeSwitcherProvider themeMap={themes} defaultTheme={prevTheme || "light"}>
-      <App subgraphUri={subgraphUri} />
+      <App />
     </ThemeSwitcherProvider>
   </ApolloProvider>,
   document.getElementById("root"),
