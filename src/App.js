@@ -1,7 +1,14 @@
 import React, { useCallback } from "react";
 import { HashRouter } from "react-router-dom";
 import { ethers } from 'ethers';
-import { PeerContext } from "@cerc-io/react-peer";
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import Fab from '@mui/material/Fab';
+import Popper from '@mui/material/Popper';
+import BugReportIcon from '@mui/icons-material/BugReport';
+import CloseIcon from '@mui/icons-material/Close';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { PeerContext, Metrics, DebugInfo } from "@cerc-io/react-peer";
 import logo from "./logo.svg";
 import "./installBuffer";
 import QueryParamsRoute from "./RoutableArea";
@@ -11,8 +18,33 @@ const { abi:PhisherRegistryABI } = require("./artifacts");
 
 const contractInterface = new ethers.utils.Interface(PhisherRegistryABI);
 
+const debugFabStyle = {
+  position: 'fixed',
+  bottom: 16,
+  right: 16,
+};
+
+const closeFabStyle = {
+  position: 'absolute',
+  top: 8,
+  right: 8
+}
+
+const theme = createTheme({
+  components: {
+    MuiTableCell: {
+      styleOverrides: {
+        sizeSmall: {
+          padding: "4px"
+        },
+      },
+    }
+  },
+});
+
 function App() {
   const peer = React.useContext(PeerContext);
+  const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleTopicMessage = useCallback((peerId, data) => {
     console.log("Received a message on mobymask P2P network from peer:", peerId.toString());
@@ -116,6 +148,57 @@ function App() {
           <a href="https://github.com/danfinlay/MobyMask/">Fork on GitHub</a>
         </p>
       </div>
+      <ThemeProvider theme={theme}>
+        <Box height={Boolean(anchorEl) ? '50vh' : 0} />
+        <Popper
+          open={Boolean(anchorEl)}
+          anchorEl={anchorEl}
+          placement="top-end"
+          keepMounted
+          sx={{
+            width: 'calc(100% - 32px)',
+            zIndex: 2
+          }}
+        >
+          <Paper
+            variant="outlined"
+            elevation={12}
+            sx={{
+              overflow: "auto",
+              padding: 1/2,
+              marginBottom: "-56px",
+              maxHeight: "50vh",
+              border: "4px double black"
+            }}
+          >
+            <Box
+            >
+              <Fab
+                onClick={() => setAnchorEl(null)}
+                sx={closeFabStyle}
+                aria-label="close"
+                size="small"
+              >
+                <CloseIcon />
+              </Fab>
+              <DebugInfo />
+              <Metrics />
+            </Box>
+          </Paper>
+        </Popper>
+        <Fab
+          color="primary"
+          onClick={event => setAnchorEl(event.currentTarget)}
+          sx={{
+            ...debugFabStyle,
+            ...(Boolean(anchorEl) ? { zIndex: 1 } : {})
+          }}
+          disabled={Boolean(anchorEl)}
+          aria-label="debug"
+        >
+          <BugReportIcon />
+        </Fab>
+      </ThemeProvider>
     </div>
   );
 }
