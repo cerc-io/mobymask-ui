@@ -12,6 +12,7 @@
     "@metamask/eth-sig-util": "^5.0.2",
     "@metamask/onboarding": "^1.0.1",
     "@mui/icons-material": "^5.11.3",
+    "@mui/lab": "^5.0.0-alpha.120",
     "@mui/material": "^5.11.3",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.3",
     "@svgr/webpack": "^6.5.1",
