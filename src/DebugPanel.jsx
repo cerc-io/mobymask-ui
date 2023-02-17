@@ -11,7 +11,7 @@ import TabPanel from '@mui/lab/TabPanel';
 import BugReportIcon from '@mui/icons-material/BugReport';
 import CloseIcon from '@mui/icons-material/Close';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Metrics, DebugInfo } from "@cerc-io/react-peer";
+import { Metrics, DebugInfo, PeerNetwork } from "@cerc-io/react-peer";
 
 const debugFabStyle = {
   position: 'fixed',
@@ -61,7 +61,6 @@ export default function DebugPanel(props) {
       >
         <Paper
           variant="outlined"
-          elevation={12}
           sx={{
             overflow: "auto",
             padding: 1 / 2,
@@ -83,7 +82,7 @@ export default function DebugPanel(props) {
               <TabList sx={{ minHeight: 32 }} onChange={handleChange} aria-label="debug panel tabs">
                 <Tab sx={{ padding: 1/2, minHeight: 32 }} label="Peers" value="1" />
                 <Tab sx={{ padding: 1/2, minHeight: 32 }} label="Metrics" value="2" />
-                {/* <Tab label="Graph" value="3" /> */}
+                <Tab sx={{ padding: 1/2, minHeight: 32 }} label="Graph" value="3" />
               </TabList>
             </Box>
             <TabPanel sx={{ padding: 0 }} value="1">
@@ -91,6 +90,9 @@ export default function DebugPanel(props) {
             </TabPanel>
             <TabPanel sx={{ padding: 0 }} value="2">
               <Metrics />
+            </TabPanel>
+            <TabPanel sx={{ padding: 0 }} value="3">
+              <PeerNetwork />
             </TabPanel>
           </TabContext>
         </Paper>
