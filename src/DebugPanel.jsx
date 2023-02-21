@@ -11,7 +11,7 @@ import TabPanel from '@mui/lab/TabPanel';
 import BugReportIcon from '@mui/icons-material/BugReport';
 import CloseIcon from '@mui/icons-material/Close';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Metrics, DebugInfo, PeerNetwork } from "@cerc-io/react-peer";
+import { Metrics, SelfInfo, Connections, PeerNetwork } from "@cerc-io/react-peer";
 
 import config from './config.json';
 
@@ -50,6 +50,9 @@ const STYLES = {
   },
   tabPanel: {
     padding: 0
+  },
+  selfInfo: {
+    marginBottom: 1
   }
 }
 const theme = createTheme({
@@ -104,7 +107,8 @@ export default function DebugPanel(props) {
               </TabList>
             </Box>
             <TabPanel sx={STYLES.tabPanel} value="1">
-              <DebugInfo relayNodes={config.relayNodes ?? []} sx={{ marginTop: 1 }} />
+              <SelfInfo relayNodes={config.relayNodes ?? []} sx={STYLES.selfInfo} />
+              <Connections />
             </TabPanel>
             <TabPanel sx={STYLES.tabPanel} value="2">
               <Metrics />
