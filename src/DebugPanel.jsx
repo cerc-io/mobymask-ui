@@ -13,6 +13,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Metrics, DebugInfo, PeerNetwork } from "@cerc-io/react-peer";
 
+import config from './config.json';
+
 const STYLES = {
   debugFabStyle: {
     position: 'fixed',
@@ -102,7 +104,7 @@ export default function DebugPanel(props) {
               </TabList>
             </Box>
             <TabPanel sx={STYLES.tabPanel} value="1">
-              <DebugInfo sx={{ marginTop: 1 }} />
+              <DebugInfo relayNodes={config.relayNodes ?? []} sx={{ marginTop: 1 }} />
             </TabPanel>
             <TabPanel sx={STYLES.tabPanel} value="2">
               <Metrics />
