@@ -14,6 +14,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Metrics, SelfInfo, Connections, PeerNetwork } from "@cerc-io/react-peer";
 
 import config from './config.json';
+import { SubscribedMessages } from "./components/SubscribedMessages";
 
 const STYLES = {
   debugFabStyle: {
@@ -68,7 +69,7 @@ const theme = createTheme({
   },
 });
 
-export default function DebugPanel(props) {
+export default function DebugPanel({ messages }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [value, setValue] = React.useState('1');
 
@@ -104,6 +105,7 @@ export default function DebugPanel(props) {
                 <Tab sx={STYLES.tab} label="Peers" value="1" />
                 <Tab sx={STYLES.tab} label="Metrics" value="2" />
                 <Tab sx={STYLES.tab} label="Graph" value="3" />
+                <Tab sx={STYLES.tab} label="Messages" value="4" />
               </TabList>
             </Box>
             <TabPanel sx={STYLES.tabPanel} value="1">
@@ -115,6 +117,9 @@ export default function DebugPanel(props) {
             </TabPanel>
             <TabPanel sx={STYLES.tabPanel} value="3">
               <PeerNetwork />
+            </TabPanel>
+            <TabPanel sx={STYLES.tabPanel} value="4">
+              <SubscribedMessages messages={messages} />
             </TabPanel>
           </TabContext>
         </Paper>

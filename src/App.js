@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { HashRouter } from "react-router-dom";
 import { ethers } from 'ethers';
 import { PeerContext } from "@cerc-io/react-peer";
@@ -14,22 +14,25 @@ const contractInterface = new ethers.utils.Interface(PhisherRegistryABI);
 
 function App() {
   const peer = React.useContext(PeerContext);
+  const [messages, setMessages] = useState([])
 
   const handleTopicMessage = useCallback((peerId, data) => {
-    console.log("Received a message on mobymask P2P network from peer:", peerId.toString());
     const { kind, message } = data;
+    const messageLogs = [`Received a message on mobymask P2P network from peer: ${peerId.toString()}`];
 
     switch (kind) {
       case MESSAGE_KINDS.INVOKE: {
-        console.log("Signed invocations:");
-        console.log(JSON.stringify(message, null, 2));
+        messageLogs.push(
+          "Signed invocations:",
+          JSON.stringify(message, null, 2)
+        );
 
         const [{ invocations: { batch: invocationsList } }] = message;
         Array.from(invocationsList).forEach(invocation => {
           const txData = invocation.transaction.data;
           const decoded = contractInterface.parseTransaction({ data: txData });
 
-          console.log(`method: ${decoded.name}, value: ${decoded.args[0]}`);
+          messageLogs.push(`method: ${decoded.name}, value: ${decoded.args[0]}`);
         });
 
         break;
@@ -37,9 +40,13 @@ function App() {
     
       case MESSAGE_KINDS.REVOKE: {
         const { signedDelegation, signedIntendedRevocation } = message;
-        console.log("Signed delegation:");
-        console.log(JSON.stringify(signedDelegation, null, 2));
-        console.log("Signed intention to revoke:");
+        
+        messageLogs.push(
+          "Signed delegation:",
+          JSON.stringify(signedDelegation, null, 2),
+          "Signed intention to revoke:"
+        );
+      
         const stringifiedSignedIntendedRevocation = JSON.stringify(
           signedIntendedRevocation,
           (key, value) => {
@@ -52,7 +59,7 @@ function App() {
           },
           2
         )
-        console.log(stringifiedSignedIntendedRevocation);
+        messageLogs.push(stringifiedSignedIntendedRevocation);
 
         break;
       }
@@ -61,6 +68,8 @@ function App() {
         break;
     }
 
+    messageLogs.forEach(messageLog => console.log(messageLog))
+    setMessages(prevMessages => ([...prevMessages, messageLogs]))
     console.log('------------------------------------------')
   }, []);
 
@@ -117,7 +126,7 @@ function App() {
           <a href="https://github.com/danfinlay/MobyMask/">Fork on GitHub</a>
         </p>
       </div>
-      <DebugPanel />
+      <DebugPanel messages={messages} />
     </div>
   );
 }
