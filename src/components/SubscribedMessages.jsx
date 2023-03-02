@@ -34,7 +34,7 @@ export function SubscribedMessages ({ messages }) {
         sx={STYLES.messages}
       >
         {messages.map(logs => (
-          <Box sx={STYLES.textBox}>
+          <Box sx={STYLES.textBox} data-ref="debug.subscribed.message">
             {logs.map(log => (
               <Typography variant="body2" >
                 <pre>{log}</pre>

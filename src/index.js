@@ -13,7 +13,7 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <PeerProvider relayNodes={config.relayNodes ?? []}>
+    <PeerProvider relayNodes={config.relayNodes ?? []} peerConfig={config.peer}>
       <App />
     </PeerProvider>
   </ApolloProvider>,

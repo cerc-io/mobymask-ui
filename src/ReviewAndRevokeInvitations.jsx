@@ -49,7 +49,7 @@ export default function (props) {
         return (
           <div key={index}>
             <span>{_invitation.petName}</span>
-            <input type="text" readOnly value={linkForInvitation(_invitation.invitation)}></input>
+            <input data-ref="member.invite.link" type="text" readOnly value={linkForInvitation(_invitation.invitation)}></input>
             <button
               onClick={() => {
                 copyInvitationLink(_invitation.invitation, _invitation.petName).catch(err => alert(err.message));

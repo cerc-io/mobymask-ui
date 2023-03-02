@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 export default function TextInput(props) {
-  const { onComplete, placeholder, buttonLabel, ...inputProps } = props;
+  const { onComplete, placeholder, buttonLabel } = props;
   const [value, setValue] = useState("");
 
   return (
@@ -19,13 +19,14 @@ export default function TextInput(props) {
         onChange={event => {
           setValue(event.target.value);
         }}
-        {...inputProps}
+        data-ref="members.input"
       />
 
       <button
         onClick={() => {
           onComplete(value);
         }}
+        data-ref="members.addBatch"
       >
         {buttonLabel}
       </button>

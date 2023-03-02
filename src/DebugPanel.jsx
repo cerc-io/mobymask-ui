@@ -11,7 +11,7 @@ import TabPanel from '@mui/lab/TabPanel';
 import BugReportIcon from '@mui/icons-material/BugReport';
 import CloseIcon from '@mui/icons-material/Close';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Metrics, SelfInfo, Connections, PeersGraph } from "@cerc-io/react-peer";
+import { Metrics, SelfInfo, Connections, PeersGraph, NetworkGraph } from "@cerc-io/react-peer";
 
 import config from './config.json';
 import { SubscribedMessages } from "./components/SubscribedMessages";
@@ -28,6 +28,7 @@ const STYLES = {
     right: 8
   },
   popper: {
+    textAlign: 'left',
     width: 'calc(100% - 32px)',
     zIndex: 2
   },
@@ -46,7 +47,7 @@ const STYLES = {
     minHeight: 32
   },
   tab: {
-    padding: 1/2,
+    paddingY: 1/2,
     minHeight: 32
   },
   tabPanel: {
@@ -107,7 +108,8 @@ export default function DebugPanel({ messages }) {
                 <Tab sx={STYLES.tab} label="Peers" value="1" />
                 <Tab sx={STYLES.tab} label="Metrics" value="2" />
                 <Tab sx={STYLES.tab} label="Graph (Peers)" value="3" />
-                <Tab sx={STYLES.tab} label="Messages" value="4" data-ref="debug.messages"/>
+                <Tab sx={STYLES.tab} label="Messages" value="4" data-ref="debug.messages" />
+                <Tab disabled={!config.peer.enableDebugInfo} sx={STYLES.tab} label="Graph (Network)" value="5" />
               </TabList>
             </Box>
             <TabPanel sx={STYLES.tabPanel} value="1">
@@ -122,6 +124,9 @@ export default function DebugPanel({ messages }) {
             </TabPanel>
             <TabPanel sx={STYLES.tabPanel} value="4">
               <SubscribedMessages messages={messages} />
+            </TabPanel>
+            <TabPanel sx={STYLES.tabPanel} value="5">
+              <NetworkGraph />
             </TabPanel>
           </TabContext>
         </Paper>
