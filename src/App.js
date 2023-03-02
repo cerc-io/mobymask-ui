@@ -81,6 +81,15 @@ function App() {
     }
   }, [peer, handleTopicMessage]);
 
+  React.useEffect(() => {
+    if (!peer || !peer.node) {
+      return
+    }
+
+    // For debugging
+    window.peer = peer;
+  }, [peer])
+
   return (
     <div className="App">
       <header className="App-header">

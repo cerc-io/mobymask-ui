@@ -32,6 +32,7 @@ export default function (props) {
       <TextInput
         placeholder="@member_person"
         buttonLabel="Endorse"
+        data-ref="members.input"
         onComplete={member => {
           const _member = member.indexOf("@") === 0 ? member.slice(1) : member;
           if (members.includes(_member)) return;

@@ -11,7 +11,7 @@ import TabPanel from '@mui/lab/TabPanel';
 import BugReportIcon from '@mui/icons-material/BugReport';
 import CloseIcon from '@mui/icons-material/Close';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Metrics, SelfInfo, Connections, PeerNetwork } from "@cerc-io/react-peer";
+import { Metrics, SelfInfo, Connections, PeersGraph } from "@cerc-io/react-peer";
 
 import config from './config.json';
 import { SubscribedMessages } from "./components/SubscribedMessages";
@@ -86,6 +86,7 @@ export default function DebugPanel({ messages }) {
         placement="top-end"
         keepMounted
         sx={STYLES.popper}
+        disablePortal
       >
         <Paper
           variant="outlined"
@@ -96,6 +97,7 @@ export default function DebugPanel({ messages }) {
             sx={STYLES.closeFabStyle}
             aria-label="close"
             size="small"
+            data-ref="debug.close"
           >
             <CloseIcon />
           </Fab>
@@ -104,8 +106,8 @@ export default function DebugPanel({ messages }) {
               <TabList sx={STYLES.tabsList} onChange={handleChange} aria-label="debug panel tabs">
                 <Tab sx={STYLES.tab} label="Peers" value="1" />
                 <Tab sx={STYLES.tab} label="Metrics" value="2" />
-                <Tab sx={STYLES.tab} label="Graph" value="3" />
-                <Tab sx={STYLES.tab} label="Messages" value="4" />
+                <Tab sx={STYLES.tab} label="Graph (Peers)" value="3" />
+                <Tab sx={STYLES.tab} label="Messages" value="4" data-ref="debug.messages"/>
               </TabList>
             </Box>
             <TabPanel sx={STYLES.tabPanel} value="1">
@@ -116,7 +118,7 @@ export default function DebugPanel({ messages }) {
               <Metrics />
             </TabPanel>
             <TabPanel sx={STYLES.tabPanel} value="3">
-              <PeerNetwork />
+              <PeersGraph />
             </TabPanel>
             <TabPanel sx={STYLES.tabPanel} value="4">
               <SubscribedMessages messages={messages} />
@@ -133,6 +135,7 @@ export default function DebugPanel({ messages }) {
         }}
         disabled={Boolean(anchorEl)}
         aria-label="debug"
+        data-ref="debug.open"
       >
         <BugReportIcon />
       </Fab>

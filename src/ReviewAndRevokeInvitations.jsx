@@ -58,6 +58,7 @@ export default function (props) {
               Copy
             </button>
             <button
+              data-ref="member.invite.revoke"
               onClick={async () => {
                 const { signedDelegations } = _invitation.invitation;
                 const signedDelegation = signedDelegations[signedDelegations.length - 1];
