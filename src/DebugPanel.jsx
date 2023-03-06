@@ -36,7 +36,7 @@ const STYLES = {
     overflow: "auto",
     padding: 1 / 2,
     marginBottom: "-56px",
-    maxHeight: "50vh",
+    height: "50vh",
     border: "4px double black"
   },
   tabsBox: {

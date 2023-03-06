@@ -7,7 +7,7 @@ import ScopedCssBaseline from '@mui/material/ScopedCssBaseline';
 const STYLES = {
   messages: {
     marginTop: 1/2,
-    height: 'calc(50vh - (16px + 16px + 32px + 16px))',
+    height: 'calc(50vh - (8px + 32px))',
     overflowY: 'scroll',
   },
   textBox: {
