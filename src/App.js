@@ -2,6 +2,7 @@ import React, { useCallback, useState } from "react";
 import { HashRouter } from "react-router-dom";
 import { ethers } from 'ethers';
 import { PeerContext } from "@cerc-io/react-peer";
+import { getPseudonymForPeerId } from "@cerc-io/peer";
 import logo from "./logo.svg";
 import "./installBuffer";
 import QueryParamsRoute from "./RoutableArea";
@@ -18,7 +19,7 @@ function App() {
 
   const handleTopicMessage = useCallback((peerId, data) => {
     const { kind, message } = data;
-    const messageLogs = [`Received a message on mobymask P2P network from peer: ${peerId.toString()}`];
+    const messageLogs = [`Received a message on mobymask P2P network from peer: ${peerId.toString()} (${getPseudonymForPeerId(peerId.toString())})`];
 
     switch (kind) {
       case MESSAGE_KINDS.INVOKE: {

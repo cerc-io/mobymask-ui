@@ -42,7 +42,7 @@ export default function (props) {
 
   return (
     <details className="box">
-      <summary>Outstanding Invitations ({invitations.length - revokedP2PInvitations.length}) {p2p && "in p2p network"}</summary>
+      <summary data-ref="member.invites.show">Outstanding Invitations ({invitations.length - revokedP2PInvitations.length}) {p2p && "in p2p network"}</summary>
       {invitations
         .filter((_invitation) => !revokedP2PInvitations.some(revokedInvitation => revokedInvitation.invitation.key === _invitation.invitation.key))
         .map((_invitation, index) => {
