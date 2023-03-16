@@ -70,6 +70,9 @@ export default function (props) {
                 const signedIntendedRevocation = util.signRevocation(intendedRevocation, invitation.key);
 
                 if (p2p && peer) {
+                  // Convert delegationHash from buffer to hex string before broadcasting as JSON on p2p network
+                  signedIntendedRevocation.intentionToRevoke.delegationHash = ethers.utils.hexlify(signedIntendedRevocation.intentionToRevoke.delegationHash)
+
                   // Broadcast revocation on the network
                   await peer.floodMessage(
                     MOBYMASK_TOPIC,

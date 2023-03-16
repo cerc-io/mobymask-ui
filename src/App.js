@@ -45,22 +45,9 @@ function App() {
         messageLogs.push(
           "Signed delegation:",
           JSON.stringify(signedDelegation, null, 2),
-          "Signed intention to revoke:"
+          "Signed intention to revoke:",
+          JSON.stringify(signedIntendedRevocation, null, 2),
         );
-
-        const stringifiedSignedIntendedRevocation = JSON.stringify(
-          signedIntendedRevocation,
-          (key, value) => {
-            if (key === 'delegationHash' && value.type === 'Buffer') {
-              // Show hex value for delegationHash instead of Buffer
-              return ethers.utils.hexlify(Buffer.from(value));
-            }
-
-            return value;
-          },
-          2
-        )
-        messageLogs.push(stringifiedSignedIntendedRevocation);
 
         break;
       }
