@@ -38,16 +38,16 @@ function App() {
 
         break;
       }
-    
+
       case MESSAGE_KINDS.REVOKE: {
         const { signedDelegation, signedIntendedRevocation } = message;
-        
+
         messageLogs.push(
           "Signed delegation:",
           JSON.stringify(signedDelegation, null, 2),
           "Signed intention to revoke:"
         );
-      
+
         const stringifiedSignedIntendedRevocation = JSON.stringify(
           signedIntendedRevocation,
           (key, value) => {
