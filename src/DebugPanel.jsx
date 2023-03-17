@@ -1,4 +1,5 @@
 import React from "react";
+import throttle from 'lodash/throttle';
 
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
@@ -15,6 +16,9 @@ import { Metrics, SelfInfo, Connections, PeersGraph, NetworkGraph } from "@cerc-
 
 import config from './config.json';
 import { SubscribedMessages } from "./components/SubscribedMessages";
+
+const RESIZE_THROTTLE_TIME = 500; // ms
+const TAB_HEADER_HEIGHT = 40;
 
 const STYLES = {
   debugFabStyle: {
@@ -57,6 +61,7 @@ const STYLES = {
     marginBottom: 1
   }
 }
+
 const theme = createTheme({
   components: {
     MuiTableCell: {
@@ -73,10 +78,26 @@ const theme = createTheme({
 export default function DebugPanel({ messages }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [value, setValue] = React.useState('1');
+  const [graphContainerHeight, setGraphContainerHeight] = React.useState((window.innerHeight / 2) - TAB_HEADER_HEIGHT)
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  const throttledHandleWindowResize = React.useMemo(
+    () => throttle(() => {
+      setGraphContainerHeight((window.innerHeight / 2) - TAB_HEADER_HEIGHT)
+    }, RESIZE_THROTTLE_TIME),
+    []
+  );
+
+  React.useEffect(() => {
+    window.addEventListener('resize', throttledHandleWindowResize);
+
+    return () => {
+      window.removeEventListener('resize', throttledHandleWindowResize);
+    };
+  }, [throttledHandleWindowResize]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -120,13 +141,13 @@ export default function DebugPanel({ messages }) {
               <Metrics />
             </TabPanel>
             <TabPanel sx={STYLES.tabPanel} value="3">
-              <PeersGraph />
+              <PeersGraph containerHeight={graphContainerHeight}/>
             </TabPanel>
             <TabPanel sx={STYLES.tabPanel} value="4">
               <SubscribedMessages messages={messages} />
             </TabPanel>
             <TabPanel sx={STYLES.tabPanel} value="5">
-              <NetworkGraph />
+              <NetworkGraph containerHeight={graphContainerHeight}/>
             </TabPanel>
           </TabContext>
         </Paper>
