@@ -8,7 +8,6 @@ import Popper from '@mui/material/Popper';
 import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
-import TabPanel from '@mui/lab/TabPanel';
 import BugReportIcon from '@mui/icons-material/BugReport';
 import CloseIcon from '@mui/icons-material/Close';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -16,6 +15,7 @@ import { Metrics, SelfInfo, Connections, PeersGraph, NetworkGraph } from "@cerc-
 
 import config from './config.json';
 import { SubscribedMessages } from "./components/SubscribedMessages";
+import { TabPanel } from './components/TabPanel';
 
 const RESIZE_THROTTLE_TIME = 500; // ms
 const TAB_HEADER_HEIGHT = 40;
@@ -55,7 +55,7 @@ const STYLES = {
     minHeight: 32
   },
   tabPanel: {
-    padding: 0
+    paddingTop: 1/2
   },
   selfInfo: {
     marginBottom: 1
