@@ -19,8 +19,12 @@ export default async function reportPhishers({
     invitation,
   });
 
-  const wallet = provider.getSigner();
-  const registry = await attachRegistry(wallet);
+  let registry = new ethers.Contract(address, abi);
+
+  if (provider) {
+    const wallet = provider.getSigner();
+    registry = await attachRegistry(registry, wallet);
+  }
 
   const invocations = await Promise.all(
     phishers.map(async (phisher) => {
