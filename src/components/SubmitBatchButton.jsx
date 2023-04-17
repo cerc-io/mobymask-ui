@@ -1,3 +1,5 @@
+import { useContext } from "react";
+import { PeerContext } from "@cerc-io/react-peer";
 import Button from "./Button";
 // import reportMembers from "../utils/reportMembers";
 import reportPhishers from "../utils/reportPhishers";
@@ -6,6 +8,7 @@ import { toast } from "react-hot-toast";
 const { ethers } = require("ethers");
 function SubmitBatchButton(props) {
   const { type, provider, subData, invitation = false, setLocalData } = props;
+  const peer = useContext(PeerContext);
   const ethersProvider = new ethers.providers.Web3Provider(provider, "any");
 
   const submitClick = () => {
@@ -15,7 +18,12 @@ function SubmitBatchButton(props) {
   // const memberReport = async () => {
   //   if (!invitation) return;
   //   try {
-  //     await reportMembers(subData, ethersProvider, invitation);
+  //     await reportMembers({
+  //       members: subData,
+  //       provider: ethersProvider,
+  //       invitation,
+  //       peer
+  //     });
   //     setLocalData([]);
   //   } catch (err) {
   //     console.error(`Error: ${err.message}`);
@@ -33,12 +41,13 @@ function SubmitBatchButton(props) {
       return `${type}:${name.toLowerCase()}`;
     });
     try {
-      const block = await reportPhishers(
-        data,
-        ethersProvider,
+      const block = await reportPhishers({
+        phishers: data,
+        provider: ethersProvider,
         invitation,
-        isReportPhisher,
-      );
+        isPhisher: isReportPhisher,
+        peer
+      });
       await block.wait();
       document.dispatchEvent(new Event("clear_pendingPhishers"));
       setLocalData([]);

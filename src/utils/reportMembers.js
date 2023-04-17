@@ -4,7 +4,12 @@ const { createMembership } = require("eth-delegatable-utils");
 const { abi } = require("./artifacts");
 const { address } = require("./config.json");
 
-export default async function reportMembers(members, provider, invitation) {
+export default async function reportMembers({
+  members,
+  provider,
+  invitation,
+  peer = null
+}) {
   const membership = createMembership({
     contractInfo,
     invitation,
@@ -39,6 +44,17 @@ export default async function reportMembers(members, provider, invitation) {
       queue,
     },
   });
+
+  if (peer) {
+    // Broadcast invocations on the network
+    return peer.floodMessage(
+      MOBYMASK_TOPIC,
+      {
+        kind: MESSAGE_KINDS.INVOKE,
+        message: [signedInvocations]
+      }
+    );
+  }
 
   return await registry.invoke([signedInvocations]);
 }

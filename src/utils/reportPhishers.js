@@ -1,14 +1,17 @@
 import { ethers } from "ethers";
 import contractInfo from "./contractInfo";
+import { MESSAGE_KINDS, MOBYMASK_TOPIC } from "./constants";
 const { createMembership } = require("eth-delegatable-utils");
 const { abi } = require("./artifacts");
 const { address } = require("./config.json");
 
-export default async function reportPhishers(
+export default async function reportPhishers({
   phishers,
   provider,
   invitation,
   isPhisher,
+  peer = null
+}
 ) {
   const { signedDelegations } = invitation;
   const membership = createMembership({
@@ -47,6 +50,17 @@ export default async function reportPhishers(
       queue,
     },
   });
+
+  if (peer) {
+    // Broadcast invocations on the network
+    return peer.floodMessage(
+      MOBYMASK_TOPIC,
+      {
+        kind: MESSAGE_KINDS.INVOKE,
+        message: [signedInvocations]
+      }
+    );
+  }
 
   return await registry.invoke([signedInvocations]);
 }
