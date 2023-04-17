@@ -1,10 +1,12 @@
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { PeerProvider } from "@cerc-io/react-peer";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { responsiveFontSizes } from "@mui/material";
 
 import { StyledEngineProvider } from "@mui/material/styles";
+import config from "./utils/config.json";
 import App from "./App";
 import "./index.css";
 
@@ -51,7 +53,9 @@ root.render(
   <ApolloProvider client={client}>
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
-        <App />
+        <PeerProvider relayNodes={config.relayNodes ?? []} peerConfig={config.peer}>
+          <App />
+        </PeerProvider>
       </ThemeProvider>
     </StyledEngineProvider>
   </ApolloProvider>,
