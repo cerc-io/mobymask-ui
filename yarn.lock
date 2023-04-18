@@ -1252,10 +1252,10 @@
     it-stream-types "^1.0.4"
     promjs "^0.4.2"
 
-"@cerc-io/react-peer@0.2.31":
-  version "0.2.31"
-  resolved "https://git.vdb.to/api/packages/cerc-io/npm/%40cerc-io%2Freact-peer/-/0.2.31/react-peer-0.2.31.tgz#f4aa71ab954a3ca1577cc44f49117dc7194ab281"
-  integrity sha512-gpYVb2MEI37nOGjcQM11+1sxFMk914PBEhEwB0hsnO4dKPcpwyaQyKEGACWxWc33HuZjjTZvFlZii71/5ZoIbQ==
+"@cerc-io/react-peer@0.2.32":
+  version "0.2.32"
+  resolved "https://git.vdb.to/api/packages/cerc-io/npm/%40cerc-io%2Freact-peer/-/0.2.32/react-peer-0.2.32.tgz#77ac18a78205b4091339f7ce07e7fa2065c09011"
+  integrity sha512-MUFcdn6DOrkkiBeCwtTwoIdkkq6nTr7DFOEp3i8splXv8b54ywxMUYZi9OGaOfzF2h8abcbyFtfSUXVxUdu8lw==
   dependencies:
     "@cerc-io/peer" "^0.2.34"
     "@mui/lab" "^5.0.0-alpha.121"
