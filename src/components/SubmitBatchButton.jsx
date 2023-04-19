@@ -51,11 +51,10 @@ function SubmitBatchButton(props) {
     reportOptions.isPhisher = isReportPhisher;
 
     try {
-      const block = await reportPhishers(reportOptions);
-      await block.wait();
+      await reportPhishers(reportOptions);
       document.dispatchEvent(new Event("clear_pendingPhishers"));
       setLocalData([]);
-      toast.success("Batch submitted to blockchain!");
+      toast.success(`Batch submitted to ${p2p ? 'p2p network' : 'blockchain'}!`);
     } catch (err) {
       toast.error(err.reason || err.error.message);
     }

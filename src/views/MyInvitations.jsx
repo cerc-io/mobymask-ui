@@ -144,7 +144,7 @@ function MyInvitations() {
           }
         );
 
-        setRevokedP2PInvitations((oldRevokedInvitations) => [...oldRevokedInvitations, ...deleteInvites]);
+        setRevokedP2PInvitations([...revokedP2PInvitations, ...deleteInvites]);
       } else {
         const result = await registry.revokeDelegation(
           signedDelegation,

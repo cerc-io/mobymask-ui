@@ -14,6 +14,7 @@ import FooterBox from "./views/FooterBox";
 import { MESSAGE_KINDS, MOBYMASK_TOPIC } from "./utils/constants";
 import { getCurrentTime } from "./utils/getCurrentTime";
 import artifacts from "./utils/artifacts.json";
+import DebugPanel from "./components/DebugPanel";
 
 const contractInterface = new ethers.utils.Interface(artifacts.abi);
 
@@ -73,6 +74,15 @@ function App() {
     }
   }, [peer, handleTopicMessage]);
 
+  useEffect(() => {
+    if (!peer || !peer.node) {
+      return
+    }
+
+    // For debugging
+    window.peer = peer;
+  }, [peer])
+
   return (
     <div className="App">
       <Toaster />
@@ -84,6 +94,7 @@ function App() {
 
       <InstallExtension />
       <FooterBox />
+      <DebugPanel messages={messages} />
     </div>
   );
 }

@@ -66,7 +66,8 @@ export default async function reportPhishers({
     );
   }
 
-  return await registry.invoke([signedInvocations]);
+  const block = await registry.invoke([signedInvocations]);
+  return block.wait();
 }
 
 async function attachRegistry(registry, signer) {
