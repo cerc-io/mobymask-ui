@@ -1,7 +1,7 @@
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { PeerProvider } from "@cerc-io/react-peer";
+import { MultipleTabsChecker, PeerProvider } from "@cerc-io/react-peer";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { responsiveFontSizes } from "@mui/material";
 
@@ -47,9 +47,11 @@ root.render(
   <ApolloProvider client={client}>
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
-        <PeerProvider relayNodes={config.relayNodes ?? []} peerConfig={config.peer}>
-          <App />
-        </PeerProvider>
+        <MultipleTabsChecker>
+          <PeerProvider relayNodes={config.relayNodes ?? []} peerConfig={config.peer}>
+            <App />
+          </PeerProvider>
+        </MultipleTabsChecker>
       </ThemeProvider>
     </StyledEngineProvider>
   </ApolloProvider>,
