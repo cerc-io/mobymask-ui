@@ -63,9 +63,9 @@ export default async function reportMembers({
   return await registry.invoke([signedInvocations]);
 }
 
-async function attachRegistry(signer) {
-  const Registry = new ethers.Contract(address, abi, signer);
-  const _registry = await Registry.attach(address);
-  const deployed = await _registry.deployed();
+async function attachRegistry(registry, signer) {
+  registry = registry.attach(address);
+  registry = registry.connect(signer);
+  const deployed = await registry.deployed();
   return deployed;
 }
