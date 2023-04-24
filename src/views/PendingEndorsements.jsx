@@ -9,7 +9,7 @@ import {
 
 import { invitationAtom } from "../atoms/invitationAtom";
 
-import statusText from "../utils/statusText";
+import { memberStatus as statusText } from "../utils/statusText";
 
 import LazyConnect from "./LazyConnect";
 import Button from "../components/Button";

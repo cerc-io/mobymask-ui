@@ -15,7 +15,7 @@ import {
 import { invitationAtom } from "../atoms/invitationAtom";
 
 import { reportTypes } from "../utils/constants";
-import statusText from "../utils/statusText";
+import { phisherStatus as statusText } from "../utils/statusText";
 
 import LazyConnect from "./LazyConnect";
 import Button from "../components/Button";
