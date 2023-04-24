@@ -133,6 +133,7 @@ function PendingReports() {
           active === "ReportPhisher" ? setStoredPhishers : setStoredNotPhishers,
         reportTypes,
         selectedOption,
+        checkResult: result.isPhisher.value
       });
       inputRef.current.value = "";
     } else {
