@@ -1,7 +1,11 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { ethers } from "ethers";
+
 import { PeerContext } from "@cerc-io/react-peer";
 import { getPseudonymForPeerId } from "@cerc-io/peer";
+import { Nitro } from "@cerc-io/browser-util";
+import { JSONbigNative } from '@cerc-io/nitro-util';
+
 import "./utils/installBuffer";
 import QueryParamsRoute from "./views/RoutableArea";
 import { HashRouter } from "react-router-dom";
@@ -17,7 +21,16 @@ import { getCurrentTime } from "./utils/getCurrentTime";
 import artifacts from "./utils/artifacts.json";
 import DebugPanel from "./components/DebugPanel";
 
+const CHAIN_PK = 'ac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80'
+const CLIENT_PK = '2d999770f7b5d49b694080f987b82bbc9fc9ac2b4dcc10b0f8aba7d700f69c6d'
+
 const contractInterface = new ethers.utils.Interface(artifacts.abi);
+
+window.clearClientStorage = Nitro.clearClientStorage;
+
+window.out = (jsonObject) => {
+  console.log(JSONbigNative.stringify(jsonObject, null, 2));
+};
 
 function App() {
   const peer = useContext(PeerContext);
@@ -79,6 +92,18 @@ function App() {
     if (!peer || !peer.node) {
       return
     }
+
+    const setupClient = async () => {
+      window.nitro = await Nitro.setupClient(
+        CLIENT_PK, // TODO: Generate random key
+        'http://localhost:8545', // TODO: Get chain URL from metamask
+        CHAIN_PK, // TODO: chainPK from metamask
+        peer,
+        `alice-db`
+      );
+    }
+
+    setupClient()
 
     // For debugging
     window.peer = peer;
