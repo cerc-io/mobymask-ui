@@ -3,7 +3,7 @@ import { ethers } from "ethers";
 
 import { PeerContext } from "@cerc-io/react-peer";
 import { getPseudonymForPeerId } from "@cerc-io/peer";
-import { Nitro } from "@cerc-io/browser-util";
+import { utils } from "@cerc-io/nitro-client-browser";
 import { JSONbigNative } from '@cerc-io/nitro-util';
 
 import "./utils/installBuffer";
@@ -20,12 +20,14 @@ import { MESSAGE_KINDS, MOBYMASK_TOPIC, DISPLAY_ENDORSE_MEMBERS } from "./utils/
 import { getCurrentTime } from "./utils/getCurrentTime";
 import artifacts from "./utils/artifacts.json";
 import DebugPanel from "./components/DebugPanel";
+import contractAddresses from "./utils/nitro-addresses.json";
 
+// TODO: Get from config
 const CHAIN_URL = 'http://localhost:8545'
 
 const contractInterface = new ethers.utils.Interface(artifacts.abi);
 
-window.clearClientStorage = Nitro.clearClientStorage;
+window.clearClientStorage = utils.Nitro.clearClientStorage;
 
 window.out = (jsonObject) => {
   console.log(JSONbigNative.stringify(jsonObject, null, 2));
@@ -34,6 +36,7 @@ window.out = (jsonObject) => {
 function App() {
   const peer = useContext(PeerContext);
   const [messages, setMessages] = useState([]);
+  const [nitro, setNitro] = useState()
 
   const handleTopicMessage = useCallback((peerId, data) => {
     const { kind, message } = data;
@@ -98,14 +101,17 @@ function App() {
     const privateKey = wallet.privateKey
 
     window.setupClient = async (chainPk) => {
-      const nitro = await Nitro.setupClient(
+      // TODO: Pass contract addresses as args to setupClient
+      const nitro = await utils.Nitro.setupClient(
         privateKey,
         CHAIN_URL, // TODO: Get chain URL from metamask
         chainPk, // TODO: chainPK from metamask
+        contractAddresses,
         peer,
         `${privateKey}-db`
       );
 
+      setNitro(nitro);
       return nitro;
     }
 
@@ -125,7 +131,7 @@ function App() {
 
       <InstallExtension />
       <FooterBox />
-      <DebugPanel messages={messages} />
+      <DebugPanel messages={messages} nitro={nitro} />
     </div>
   );
 }
