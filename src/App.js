@@ -4,7 +4,7 @@ import { ethers } from "ethers";
 import { PeerContext } from "@cerc-io/react-peer";
 import { getPseudonymForPeerId } from "@cerc-io/peer";
 import { utils } from "@cerc-io/nitro-client-browser";
-import { JSONbigNative } from '@cerc-io/nitro-util';
+import { JSONbigNative } from "@cerc-io/nitro-util";
 
 import "./utils/installBuffer";
 import QueryParamsRoute from "./views/RoutableArea";
