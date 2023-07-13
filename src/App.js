@@ -21,8 +21,7 @@ import { getCurrentTime } from "./utils/getCurrentTime";
 import artifacts from "./utils/artifacts.json";
 import DebugPanel from "./components/DebugPanel";
 
-const CHAIN_PK = 'ac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80'
-const CLIENT_PK = '2d999770f7b5d49b694080f987b82bbc9fc9ac2b4dcc10b0f8aba7d700f69c6d'
+const CHAIN_URL = 'http://localhost:8545'
 
 const contractInterface = new ethers.utils.Interface(artifacts.abi);
 
@@ -93,17 +92,22 @@ function App() {
       return
     }
 
-    const setupClient = async () => {
-      window.nitro = await Nitro.setupClient(
-        CLIENT_PK, // TODO: Generate random key
-        'http://localhost:8545', // TODO: Get chain URL from metamask
-        CHAIN_PK, // TODO: chainPK from metamask
-        peer,
-        `alice-db`
-      );
-    }
+    // TODO: Refactor to watcher util package
+    const wallet = ethers.Wallet.createRandom()
+    // TODO: Cache private key to browser
+    const privateKey = wallet.privateKey
 
-    setupClient()
+    window.setupClient = async (chainPk) => {
+      const nitro = await Nitro.setupClient(
+        privateKey,
+        CHAIN_URL, // TODO: Get chain URL from metamask
+        chainPk, // TODO: chainPK from metamask
+        peer,
+        `${privateKey}-db`
+      );
+
+      return nitro;
+    }
 
     // For debugging
     window.peer = peer;
