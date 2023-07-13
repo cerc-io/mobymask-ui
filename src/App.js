@@ -90,15 +90,27 @@ function App() {
     }
   }, [peer, handleTopicMessage]);
 
+  const loadOrStoreLocalStorage = (key, store) => {
+    // Try to load from browser's local storage
+    let value = localStorage.getItem(key);
+
+    if (!value) {
+      value = store()
+      localStorage.setItem(key, value);
+    }
+
+    return value;
+  }
+
   useEffect(() => {
     if (!peer || !peer.node) {
       return
     }
 
-    // TODO: Refactor to watcher util package
-    const wallet = ethers.Wallet.createRandom()
-    // TODO: Cache private key to browser
-    const privateKey = wallet.privateKey
+    const privateKey = loadOrStoreLocalStorage('nitro-key', () => {
+      const wallet = ethers.Wallet.createRandom()
+      return wallet.privateKey;
+    })
 
     window.setupClient = async (chainPk) => {
       // TODO: Pass contract addresses as args to setupClient
