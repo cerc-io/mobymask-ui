@@ -43,6 +43,8 @@ export function NitroInfo ({ nitro }) {
       }
     });
 
+    setKnownClients([]);
+
     // TODO: Add method for getting private peers
     nitro.msgService.peers.range((_, peerInfo) => {
       setKnownClients((prevClients) => [...prevClients, peerInfo]);
@@ -80,6 +82,18 @@ export function NitroInfo ({ nitro }) {
             <Typography variant="body2" >
               Message service ID: {msgServiceId.toString()}
             </Typography>
+          </Box>
+          <Typography variant="body2" >
+            Known clients
+          </Typography>
+          <Box sx={STYLES.textBox}>
+            {
+              knownClients.map(knownClient => (
+                <Typography key={knownClient.id} component='div' variant="body2" >
+                  <pre>{JSONbigNative.stringify(knownClient, null, 2)}</pre>
+                </Typography>
+              ))
+            }
           </Box>
           <Typography variant="body2" >
             Ledger channels
