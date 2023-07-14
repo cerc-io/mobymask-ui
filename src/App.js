@@ -113,7 +113,6 @@ function App() {
     })
 
     window.setupClient = async (chainPk) => {
-      // TODO: Pass contract addresses as args to setupClient
       const nitro = await utils.Nitro.setupClient(
         privateKey,
         CHAIN_URL, // TODO: Get chain URL from metamask
