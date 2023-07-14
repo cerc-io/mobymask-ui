@@ -6,6 +6,8 @@
   "peer": {
     "denyMultiaddrs": [],
     "enableDebugInfo": true,
-    "pubsub": "floodsub"
+    "pubsub": "floodsub",
+    "pingInterval": 4000,
+    "pingTimeout": 1500
   }
 }
