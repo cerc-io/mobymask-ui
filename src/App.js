@@ -116,7 +116,6 @@ function App() {
       const nitro = await utils.Nitro.setupClient(
         privateKey,
         CHAIN_URL, // TODO: Get chain URL from metamask
-        chainPk, // TODO: chainPK from metamask
         contractAddresses,
         peer,
         `${privateKey}-db`

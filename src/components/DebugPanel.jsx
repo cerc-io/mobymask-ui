@@ -17,6 +17,9 @@ import config from '../utils/config.json';
 import { SubscribedMessages } from './SubscribedMessages';
 import { TabPanel } from './TabPanel';
 import { NitroInfo } from './NitroInfo';
+import LazyConnect from "../views/LazyConnect";
+
+const { peer, relayNodes, chainId } = config;
 
 const RESIZE_THROTTLE_TIME = 500; // ms
 const TAB_HEADER_HEIGHT = 40;
@@ -131,12 +134,12 @@ export default function DebugPanel({ messages, nitro }) {
                 <Tab sx={STYLES.tab} label="Metrics" value="2" />
                 <Tab sx={STYLES.tab} label="Graph (Peers)" value="3" />
                 <Tab sx={STYLES.tab} label="Messages" value="4" data-ref="debug.messages" />
-                <Tab disabled={!config.peer.enableDebugInfo} sx={STYLES.tab} label="Graph (Network)" value="5" />
+                <Tab disabled={!peer.enableDebugInfo} sx={STYLES.tab} label="Graph (Network)" value="5" />
                 <Tab disabled={!nitro} sx={STYLES.tab} label="Nitro" value="6" />
               </TabList>
             </Box>
             <TabPanel sx={STYLES.tabPanel} value="1">
-              <SelfInfo relayNodes={config.relayNodes ?? []} sx={STYLES.selfInfo} />
+              <SelfInfo relayNodes={relayNodes ?? []} sx={STYLES.selfInfo} />
               <Connections />
             </TabPanel>
             <TabPanel sx={STYLES.tabPanel} value="2">
@@ -152,7 +155,14 @@ export default function DebugPanel({ messages, nitro }) {
               <NetworkGraph containerHeight={graphContainerHeight}/>
             </TabPanel>
             <TabPanel sx={STYLES.tabPanel} value="6">
-              <NitroInfo nitro={nitro}/>
+              {/* TODO: Setup client inside component after connecting wallet? */}
+              <LazyConnect
+                actionName="Connect to wallet for interacting with Nitro client"
+                chainId={chainId}
+                opts={{ needsAccountConnected: true }}
+              >
+                <NitroInfo nitro={nitro}/>
+              </LazyConnect>
             </TabPanel>
           </TabContext>
         </Paper>

@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
+import { ethers } from 'ethers';
 
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -25,10 +26,22 @@ const STYLES = {
   }
 }
 
-export function NitroInfo ({ nitro }) {
+export function NitroInfo ({ nitro, provider }) {
   const [knownClients, setKnownClients] = useState([]);
   const [channels, setChannels] = useState([]);
   const [msgServiceId, setMsgServiceId] = useState('');
+  const [ledgerChannel, setLedgerChannel] = useState();
+
+  useEffect(() => {
+    if (!provider) {
+      return;
+    }
+
+    // TODO: Setup nitro client in this component instead of setting provider and signer
+    const ethersProvider = new ethers.providers.Web3Provider(provider, "any");
+    nitro.chainService.setChainProvider(ethersProvider);
+    nitro.chainService.setSigner(ethersProvider.getSigner());
+  }, [provider, nitro])
 
   const updateInfo = useCallback(async () => {
     const channels = await nitro.getAllLedgerChannels();
@@ -56,6 +69,17 @@ export function NitroInfo ({ nitro }) {
     setChannels(channelsJSON);
   }, [nitro]);
 
+  const handleDirectFund = useCallback(async () => {
+    // Temp code to get counterparty string
+    const counterpartyAddress = knownClients[0].address;
+
+    setLedgerChannel(await nitro.directFund(counterpartyAddress, 1_000_000));
+  }, [nitro, knownClients]);
+
+  const handleDirectDefund = useCallback(async () => {
+    await nitro.directDefund(ledgerChannel)
+  }, [nitro, ledgerChannel]);
+
   useEffect(() => {
     if (nitro) {
       updateInfo()
@@ -71,6 +95,24 @@ export function NitroInfo ({ nitro }) {
       >
         UPDATE
       </Button>
+      &nbsp;
+      <Button
+        variant="contained"
+        size="small"
+        onClick={handleDirectFund}
+      >
+        DIRECT FUND
+      </Button>
+      &nbsp;
+      {Boolean(ledgerChannel) && (
+        <Button
+          variant="contained"
+          size="small"
+          onClick={handleDirectDefund}
+        >
+          DIRECT DEFUND
+        </Button>
+      )}
       {nitro && (
         <Box
           sx={STYLES.json}
