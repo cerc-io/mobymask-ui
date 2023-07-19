@@ -1,11 +1,17 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { ethers } from 'ethers';
+import { toast } from 'react-hot-toast';
+import { useAtom } from 'jotai';
 
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import ScopedCssBaseline from '@mui/material/ScopedCssBaseline';
+import { utils } from "@cerc-io/nitro-client-browser";
 import { JSONbigNative } from '@cerc-io/nitro-util';
+
+import contractAddresses from "../utils/nitro-addresses.json";
+import { nitroKeyAtom } from '../atoms/nitroKeyAtom';
 
 const STYLES = {
   json: {
@@ -26,22 +32,55 @@ const STYLES = {
   }
 }
 
-export function NitroInfo ({ nitro, provider }) {
+window.clearClientStorage = utils.Nitro.clearClientStorage;
+
+window.out = (jsonObject) => {
+  console.log(JSONbigNative.stringify(jsonObject, null, 2));
+};
+
+export function NitroInfo ({ provider, peer }) {
+  const [nitro, setNitro] = useState();
+  const [nitroKey, setNitroKey] = useAtom(nitroKeyAtom);
   const [knownClients, setKnownClients] = useState([]);
   const [channels, setChannels] = useState([]);
   const [msgServiceId, setMsgServiceId] = useState('');
   const [ledgerChannel, setLedgerChannel] = useState();
 
   useEffect(() => {
-    if (!provider) {
+    if (nitroKey) {
       return;
     }
 
-    // TODO: Setup nitro client in this component instead of setting provider and signer
-    const ethersProvider = new ethers.providers.Web3Provider(provider, "any");
-    nitro.chainService.setChainProvider(ethersProvider);
-    nitro.chainService.setSigner(ethersProvider.getSigner());
-  }, [provider, nitro])
+    const wallet = ethers.Wallet.createRandom()
+    setNitroKey(wallet.privateKey);
+  }, [nitroKey, setNitroKey]);
+
+  useEffect(() => {
+    if (!nitroKey || !provider || !peer) {
+      return;
+    }
+
+    const setupClient = async () => {
+      const loading = toast.loading("Starting Nitro client...");
+      const ethersProvider = new ethers.providers.Web3Provider(provider, "any");
+
+      const nitro = await utils.Nitro.setupClientWithProvider(
+        nitroKey,
+        ethersProvider,
+        contractAddresses,
+        peer,
+        `${nitroKey}-db`
+      );
+
+      setNitro(nitro);
+      toast.dismiss(loading);
+
+      // For debugging
+      window.nitro = nitro;
+    }
+
+    setupClient();
+  }, [provider, nitroKey, peer]);
 
   const updateInfo = useCallback(async () => {
     const channels = await nitro.getAllLedgerChannels();
@@ -143,7 +182,7 @@ export function NitroInfo ({ nitro, provider }) {
           <Box sx={STYLES.textBox}>
             {
               channels.map(channel => (
-                <Typography key={channel.ID} component='div' variant="body2" >
+                <Typography key={channel.ID.value} component='div' variant="body2" >
                   <pre>{JSONbigNative.stringify(channel, null, 2)}</pre>
                 </Typography>
               ))

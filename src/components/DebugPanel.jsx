@@ -11,7 +11,7 @@ import TabList from '@mui/lab/TabList';
 import BugReportIcon from '@mui/icons-material/BugReport';
 import CloseIcon from '@mui/icons-material/Close';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Metrics, SelfInfo, Connections, PeersGraph, NetworkGraph } from "@cerc-io/react-peer";
+import { Metrics, SelfInfo, Connections, PeersGraph, NetworkGraph, PeerContext } from "@cerc-io/react-peer";
 
 import config from '../utils/config.json';
 import { SubscribedMessages } from './SubscribedMessages';
@@ -19,7 +19,7 @@ import { TabPanel } from './TabPanel';
 import { NitroInfo } from './NitroInfo';
 import LazyConnect from "../views/LazyConnect";
 
-const { peer, relayNodes, chainId } = config;
+const { peer: peerConfig, relayNodes, chainId } = config;
 
 const RESIZE_THROTTLE_TIME = 500; // ms
 const TAB_HEADER_HEIGHT = 40;
@@ -83,6 +83,7 @@ export default function DebugPanel({ messages, nitro }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [value, setValue] = React.useState('1');
   const [graphContainerHeight, setGraphContainerHeight] = React.useState((window.innerHeight / 2) - TAB_HEADER_HEIGHT)
+  const peer = React.useContext(PeerContext);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -134,8 +135,8 @@ export default function DebugPanel({ messages, nitro }) {
                 <Tab sx={STYLES.tab} label="Metrics" value="2" />
                 <Tab sx={STYLES.tab} label="Graph (Peers)" value="3" />
                 <Tab sx={STYLES.tab} label="Messages" value="4" data-ref="debug.messages" />
-                <Tab disabled={!peer.enableDebugInfo} sx={STYLES.tab} label="Graph (Network)" value="5" />
-                <Tab disabled={!nitro} sx={STYLES.tab} label="Nitro" value="6" />
+                <Tab disabled={!peerConfig.enableDebugInfo} sx={STYLES.tab} label="Graph (Network)" value="5" />
+                <Tab sx={STYLES.tab} label="Nitro" value="6" />
               </TabList>
             </Box>
             <TabPanel sx={STYLES.tabPanel} value="1">
@@ -157,11 +158,11 @@ export default function DebugPanel({ messages, nitro }) {
             <TabPanel sx={STYLES.tabPanel} value="6">
               {/* TODO: Setup client inside component after connecting wallet? */}
               <LazyConnect
-                actionName="Connect to wallet for interacting with Nitro client"
+                actionName="Connect to a wallet for starting Nitro client"
                 chainId={chainId}
                 opts={{ needsAccountConnected: true }}
               >
-                <NitroInfo nitro={nitro}/>
+                <NitroInfo peer={peer}/>
               </LazyConnect>
             </TabPanel>
           </TabContext>
