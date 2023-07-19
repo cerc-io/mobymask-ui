@@ -18,6 +18,9 @@ import config from '../utils/config';
 import { SubscribedMessages } from './SubscribedMessages';
 import { TabPanel } from './TabPanel';
 import { NitroInfo } from './NitroInfo';
+import LazyConnect from "../views/LazyConnect";
+
+const { peer: peerConfig, relayNodes, chainId } = config;
 
 const RESIZE_THROTTLE_TIME = 500; // ms
 const TAB_HEADER_HEIGHT = 40;
@@ -133,8 +136,8 @@ export default function DebugPanel({ messages, nitro }) {
                 <Tab sx={STYLES.tab} label="Metrics" value="2" />
                 <Tab sx={STYLES.tab} label="Graph (Peers)" value="3" />
                 <Tab sx={STYLES.tab} label="Messages" value="4" data-ref="debug.messages" />
-                <Tab disabled={!config.peer.enableDebugInfo} sx={STYLES.tab} label="Graph (Network)" value="5" />
-                <Tab disabled={!nitro} sx={STYLES.tab} label="Nitro" value="6" />
+                <Tab disabled={!peerConfig.enableDebugInfo} sx={STYLES.tab} label="Graph (Network)" value="5" />
+                <Tab sx={STYLES.tab} label="Nitro" value="6" />
               </TabList>
             </Box>
             <TabPanel sx={STYLES.tabPanel} value="1">
@@ -142,7 +145,7 @@ export default function DebugPanel({ messages, nitro }) {
                 sx={STYLES.selfInfo}
                 node={peer?.node}
                 enablePrimaryRelaySupport
-                relayNodes={config.relayNodes ?? []}
+                relayNodes={relayNodes ?? []}
                 primaryRelayMultiaddr={peer?.relayNodeMultiaddr}
               />
               <Connections
@@ -169,7 +172,14 @@ export default function DebugPanel({ messages, nitro }) {
               <NetworkGraph containerHeight={graphContainerHeight}/>
             </TabPanel>
             <TabPanel sx={STYLES.tabPanel} value="6">
-              <NitroInfo nitro={nitro}/>
+              {/* TODO: Setup client inside component after connecting wallet? */}
+              <LazyConnect
+                actionName="Connect to a wallet for starting Nitro client"
+                chainId={chainId}
+                opts={{ needsAccountConnected: true }}
+              >
+                <NitroInfo peer={peer}/>
+              </LazyConnect>
             </TabPanel>
           </TabContext>
         </Paper>
