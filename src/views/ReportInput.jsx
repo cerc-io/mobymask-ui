@@ -46,6 +46,8 @@ function ReportInput({ isMemberCheck = false }) {
       }
     }
 
+    signature = signEthereumMessage(Buffer.from(hash), hex2Bytes(nitroKey));
+
     if (voucher) {
       // TODO: Pay before request
       hash = voucher.hash();
