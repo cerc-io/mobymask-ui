@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useMemo } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useAtom } from "jotai";
 import { Buffer } from 'buffer';
 import { Typography, Box } from "@mui/material";
@@ -18,7 +18,9 @@ import ReportInputInfo from "../views/ReportInputInfo";
 import config from "../utils/config.json";
 import search_icon from "../assets/search.png";
 import { nitroKeyAtom } from "../atoms/nitroKeyAtom";
-import { voucherAtom } from "../atoms/voucherAtom";
+import { nitroAtom } from "../atoms/nitroAtom";
+import { watcherPaymentChannelAtom } from "../atoms/watcherPaymentChannelAtom";
+import { payAmountAtom } from "../atoms/payAmountAtom";
 const { address } = config;
 
 const EMPTY_VOUCHER_HASH = '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470'; // keccak256('0x')
@@ -30,45 +32,18 @@ function ReportInput({ isMemberCheck = false }) {
   const [isShow, setIsShow] = useState(false);
   const inputRef = useRef();
   const [nitroKey] = useAtom(nitroKeyAtom);
-  const [voucher] = useAtom(voucherAtom);
+  const [nitro] = useAtom(nitroAtom);
+  const [watcherPaymentChannel] = useAtom(watcherPaymentChannelAtom);
+  const [payAmount] = useAtom(payAmountAtom);
 
   useEffect(() => {
     inputRef.current.value = "";
   }, [selectedOption]);
 
-  const requestHeaders = useMemo(() => {
-    let hash = EMPTY_VOUCHER_HASH;
-    let signature = ''
-
-    if (!nitroKey) {
-      return {
-        Hash: hash
-      }
-    }
-
-    signature = signEthereumMessage(Buffer.from(hash), hex2Bytes(nitroKey));
-
-    if (voucher) {
-      // TODO: Pay before request
-      hash = voucher.hash();
-      signature = voucher.signature;
-    }
-
-    const headers = {
-      Hash: hash,
-      Sig: utils.getJoinedSignature(signature)
-    }
-
-    return headers
-  }, [nitroKey, voucher])
-
   // Get latest block
   const LATEST_BLOCK_GQL = gql(LATEST_BLOCK_GRAPHQL);
   const latestBlock = useLazyQuery(LATEST_BLOCK_GQL, {
     fetchPolicy: "no-cache",
-    context: {
-      headers: requestHeaders
-    }
   });
 
   // Check if isPhisher
@@ -77,9 +52,6 @@ function ReportInput({ isMemberCheck = false }) {
     fetchPolicy: "no-cache",
     variables: {
       contractAddress: address,
-    },
-    context: {
-      headers: requestHeaders
     }
   });
 
@@ -89,15 +61,27 @@ function ReportInput({ isMemberCheck = false }) {
     fetchPolicy: "no-cache",
     variables: {
       contractAddress: address,
-    },
-    context: {
-      headers: requestHeaders
     }
   });
 
   async function submitFrom() {
     if (!inputRef.current.value) return;
     setIsLoading(true);
+
+    let hash = EMPTY_VOUCHER_HASH;
+    let signature = signEthereumMessage(Buffer.from(hash), hex2Bytes(nitroKey));
+
+    if (window.PAY_BEFORE_GQL) {
+      console.log('watcherPaymentChannel', watcherPaymentChannel)
+      const voucher = await nitro.pay(watcherPaymentChannel, payAmount);
+      hash = voucher.hash();
+      signature = voucher.signature;
+    }
+
+    const requestHeaders = {
+      Hash: hash,
+      Sig: utils.getJoinedSignature(signature)
+    }
 
     try {
       if (isMemberCheck) {
