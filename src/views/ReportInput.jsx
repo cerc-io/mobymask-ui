@@ -72,7 +72,6 @@ function ReportInput({ isMemberCheck = false }) {
     let signature = signEthereumMessage(Buffer.from(hash), hex2Bytes(nitroKey));
 
     if (window.PAY_BEFORE_GQL) {
-      console.log('watcherPaymentChannel', watcherPaymentChannel)
       const voucher = await nitro.pay(watcherPaymentChannel, payAmount);
       hash = voucher.hash();
       signature = voucher.signature;
