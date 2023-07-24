@@ -1,17 +1,22 @@
 import { useContext } from "react";
+import { toast } from "react-hot-toast";
+
 import { PeerContext } from "@cerc-io/react-peer";
+
 import Button from "./Button";
 import reportMembers from "../utils/reportMembers";
 import reportPhishers from "../utils/reportPhishers";
 import { reportTypes } from "../utils/constants";
-import { toast } from "react-hot-toast";
+import usePayAndGetSignedVoucher from "../hooks/usePayAndGetSignedVoucher";
+
 const { ethers } = require("ethers");
 function SubmitBatchButton(props) {
   const { type, provider, subData, invitation = false, setLocalData, p2p = false } = props;
   const peer = useContext(PeerContext);
 
   const reportOptions = {
-    invitation
+    invitation,
+    payAndGetHeaders: usePayAndGetSignedVoucher()
   };
 
   if (p2p) {
