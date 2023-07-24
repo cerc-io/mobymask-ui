@@ -15,7 +15,7 @@ import contractAddresses from "../utils/nitro-addresses.json";
 import { nitroKeyAtom } from '../atoms/nitroKeyAtom';
 import { nitroAtom } from '../atoms/nitroAtom';
 import { payAmountAtom } from '../atoms/payAmountAtom';
-import { watcherPaymentChannelAtom } from '../atoms/watcherPaymentChannelAtom';
+import { watcherPaymentChannelIdAtom } from '../atoms/watcherPaymentChannelIdAtom';
 
 const STYLES = {
   selfInfoHead: {
@@ -58,7 +58,7 @@ export function NitroInfo ({ provider, peer }) {
   const [directFundAmount, setDirectFundAmount] = useState(1_000_000_000);
   const [virtualFundAmount, setVirtualFundAmount] = useState(1_000);
   const [payAmount, setPayAmount] = useAtom(payAmountAtom);
-  const [, setWatcherPaymentChannel] = useAtom(watcherPaymentChannelAtom)
+  const [, setWatcherPaymentChannelId] = useAtom(watcherPaymentChannelIdAtom)
 
   const clientLedgerChannelMap = useMemo(() => {
     return Array.from(ledgerChannels.values()).reduce((acc, channel) => {
@@ -90,8 +90,8 @@ export function NitroInfo ({ provider, peer }) {
       return;
     }
 
-    setWatcherPaymentChannel(paymentChannels[0].value)
-  }, [knownClients, clientPaymentChannelsMap, setWatcherPaymentChannel])
+    setWatcherPaymentChannelId(paymentChannels[0].value)
+  }, [knownClients, clientPaymentChannelsMap, setWatcherPaymentChannelId])
 
   useEffect(() => {
     if (nitroKey) {

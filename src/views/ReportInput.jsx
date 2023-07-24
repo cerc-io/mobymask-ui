@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useMemo } from "react";
 import { useAtom } from "jotai";
 import { Buffer } from 'buffer';
 import { Typography, Box } from "@mui/material";
@@ -19,11 +19,13 @@ import config from "../utils/config.json";
 import search_icon from "../assets/search.png";
 import { nitroKeyAtom } from "../atoms/nitroKeyAtom";
 import { nitroAtom } from "../atoms/nitroAtom";
-import { watcherPaymentChannelAtom } from "../atoms/watcherPaymentChannelAtom";
+import { watcherPaymentChannelIdAtom } from "../atoms/watcherPaymentChannelIdAtom";
 import { payAmountAtom } from "../atoms/payAmountAtom";
 const { address } = config;
 
 const EMPTY_VOUCHER_HASH = '0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470'; // keccak256('0x')
+
+window.PAY_FOR_GQL_REQUESTS = true;
 
 function ReportInput({ isMemberCheck = false }) {
   const [selectedOption, setSelectedOption] = useState("TWT");
@@ -33,7 +35,7 @@ function ReportInput({ isMemberCheck = false }) {
   const inputRef = useRef();
   const [nitroKey] = useAtom(nitroKeyAtom);
   const [nitro] = useAtom(nitroAtom);
-  const [watcherPaymentChannel] = useAtom(watcherPaymentChannelAtom);
+  const [watcherPaymentChannelId] = useAtom(watcherPaymentChannelIdAtom);
   const [payAmount] = useAtom(payAmountAtom);
 
   useEffect(() => {
@@ -64,16 +66,20 @@ function ReportInput({ isMemberCheck = false }) {
     }
   });
 
+  const emptyVoucherHashSignature = useMemo(() => {
+    return signEthereumMessage(Buffer.from(EMPTY_VOUCHER_HASH), hex2Bytes(nitroKey));
+  }, [nitroKey])
+
   async function submitFrom() {
     if (!inputRef.current.value) return;
     setIsLoading(true);
 
     try {
       let hash = EMPTY_VOUCHER_HASH;
-      let signature = signEthereumMessage(Buffer.from(hash), hex2Bytes(nitroKey));
+      let signature = emptyVoucherHashSignature;
 
-      if (window.PAY_BEFORE_GQL && nitro) {
-        const voucher = await nitro.pay(watcherPaymentChannel, payAmount);
+      if (window.PAY_FOR_GQL_REQUESTS && nitro && watcherPaymentChannelId) {
+        const voucher = await nitro.pay(watcherPaymentChannelId, payAmount);
         hash = voucher.hash();
         signature = voucher.signature;
       }
