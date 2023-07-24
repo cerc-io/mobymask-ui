@@ -68,21 +68,21 @@ function ReportInput({ isMemberCheck = false }) {
     if (!inputRef.current.value) return;
     setIsLoading(true);
 
-    let hash = EMPTY_VOUCHER_HASH;
-    let signature = signEthereumMessage(Buffer.from(hash), hex2Bytes(nitroKey));
-
-    if (window.PAY_BEFORE_GQL) {
-      const voucher = await nitro.pay(watcherPaymentChannel, payAmount);
-      hash = voucher.hash();
-      signature = voucher.signature;
-    }
-
-    const requestHeaders = {
-      Hash: hash,
-      Sig: utils.getJoinedSignature(signature)
-    }
-
     try {
+      let hash = EMPTY_VOUCHER_HASH;
+      let signature = signEthereumMessage(Buffer.from(hash), hex2Bytes(nitroKey));
+
+      if (window.PAY_BEFORE_GQL && nitro) {
+        const voucher = await nitro.pay(watcherPaymentChannel, payAmount);
+        hash = voucher.hash();
+        signature = voucher.signature;
+      }
+
+      const requestHeaders = {
+        Hash: hash,
+        Sig: utils.getJoinedSignature(signature)
+      }
+
       if (isMemberCheck) {
         const result = await checkMemberStatus(
           inputRef.current.value,
