@@ -78,7 +78,7 @@ export function NitroInfo ({ provider, peer }) {
 
   // Set watcher client payment channel
   useEffect(() => {
-    const watcherClient = knownClients.find(knownClient => knownClient.id.toString() === process.env.REACT_APP_WATCHER_PEER_ID);
+    const watcherClient = knownClients.find(knownClient => knownClient.address === process.env.REACT_APP_PAY_TO_NITRO_ADDRESS);
 
     if (!watcherClient) {
       return;
