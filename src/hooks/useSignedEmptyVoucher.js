@@ -12,11 +12,17 @@ export default function useSignedEmptyVoucher() {
   const [nitroKey] = useAtom(nitroKeyAtom);
 
   return React.useMemo(() => {
+    if (!nitroKey) {
+      return {
+        vhash: EMPTY_VOUCHER_HASH
+      }
+    }
+
     const signature = signEthereumMessage(Buffer.from(EMPTY_VOUCHER_HASH), hex2Bytes(nitroKey));
 
     return {
-      Hash: EMPTY_VOUCHER_HASH,
-      Sig: utils.getJoinedSignature(signature)
+      vhash: EMPTY_VOUCHER_HASH,
+      vsig: utils.getJoinedSignature(signature)
     }
   }, [nitroKey]);
 }

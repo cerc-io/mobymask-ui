@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Typography, Box } from "@mui/material";
-import { reportTypes as options } from "../utils/constants";
+import { useAtom } from "jotai";
 import { toast } from "react-hot-toast";
+import { Typography, Box } from "@mui/material";
 import { gql } from "@apollo/client";
+import { reportTypes as options } from "../utils/constants";
 import useLazyQuery from "../hooks/useLazyQuery";
 import LATEST_BLOCK_GRAPHQL from "../queries/latestBlock";
 import IS_PHISHER_GRAPHQL from "../queries/isPhisher";
@@ -15,6 +16,7 @@ import config from "../utils/config.json";
 import search_icon from "../assets/search.png";
 import useSignedEmptyVoucher from "../hooks/useSignedEmptyVoucher";
 import usePayAndGetSignedVoucher from "../hooks/usePayAndGetSignedVoucher";
+import { watcherPaymentChannelIdAtom } from "../atoms/watcherPaymentChannelIdAtom";
 const { address } = config;
 
 window.PAY_FOR_GQL_REQUESTS = true;
@@ -25,6 +27,7 @@ function ReportInput({ isMemberCheck = false }) {
   const [isLoading, setIsLoading] = useState(false);
   const [isShow, setIsShow] = useState(false);
   const inputRef = useRef();
+  const [watcherPaymentChannelId] = useAtom(watcherPaymentChannelIdAtom)
 
   useEffect(() => {
     inputRef.current.value = "";
@@ -62,7 +65,7 @@ function ReportInput({ isMemberCheck = false }) {
     setIsLoading(true);
 
     try {
-      if (window.PAY_FOR_GQL_REQUESTS) {
+      if (window.PAY_FOR_GQL_REQUESTS && watcherPaymentChannelId) {
         signedVoucher = await payAndGetSignedVoucher();
       }
 
