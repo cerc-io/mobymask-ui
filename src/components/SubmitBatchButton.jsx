@@ -67,7 +67,7 @@ function SubmitBatchButton(props) {
       setLocalData([]);
       toast.success(`Batch submitted to ${p2p ? 'p2p network' : 'blockchain'}!`);
     } catch (err) {
-      toast.error(err.reason || err.error.message);
+      toast.error(err.reason || err.error?.message || err.message);
     }
     toast.dismiss(loading);
   };
@@ -90,7 +90,7 @@ function SubmitBatchButton(props) {
       setLocalData([]);
       toast.success(`Batch submitted to ${p2p ? 'p2p network' : 'blockchain'}!`);
     } catch (err) {
-      toast.error(err.reason || err.error.message);
+      toast.error(err.reason || err.error?.message || err.message);
     }
     toast.dismiss(loading);
   };
