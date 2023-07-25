@@ -4,7 +4,6 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { useAtom, useAtomValue } from "jotai";
 import { gql } from "@apollo/client";
 
 import {
@@ -25,6 +24,7 @@ import IS_PHISHER_GRAPHQL from "../queries/isPhisher";
 import useLazyQuery from "../hooks/useLazyQuery";
 import { checkPhisherStatus, reportHandle } from "../utils/checkPhisherStatus";
 import config from "../utils/config";
+import usePaymentGenerator from "../hooks/usePaymentGenerator";
 
 const { chainId, address } = config;
 
@@ -114,27 +114,37 @@ function PendingReports() {
     setSelectedOption(event.target.value);
   };
 
+  const paymentGenerator = usePaymentGenerator();
+
   const checkInfo = async () => {
     if (!inputRef.current.value) return;
-    const result = await checkPhisherStatus(
-      selectedOption,
-      inputRef.current.value,
-      latestBlock,
-      isPhisher,
-    );
-    if (result) {
-      reportHandle({
-        phisher: inputRef.current.value,
-        store: active === "ReportPhisher" ? storedPhishers : storedNotPhishers,
-        setStore:
-          active === "ReportPhisher" ? setStoredPhishers : setStoredNotPhishers,
-        isPhisher: result.isPhisher.value,
+
+    try {
+      const signedVoucher = await paymentGenerator()
+
+      const result = await checkPhisherStatus(
         selectedOption,
-        checkResult: result.isPhisher.value
-      });
-      inputRef.current.value = "";
-    } else {
-      console.error(result);
+        inputRef.current.value,
+        latestBlock,
+        isPhisher,
+        signedVoucher
+      );
+      if (result) {
+        reportHandle({
+          phisher: inputRef.current.value,
+          store: active === "ReportPhisher" ? storedPhishers : storedNotPhishers,
+          setStore:
+            active === "ReportPhisher" ? setStoredPhishers : setStoredNotPhishers,
+          isPhisher: result.isPhisher.value,
+          selectedOption
+        });
+        inputRef.current.value = "";
+      } else {
+        console.error(result);
+        throw new Error(result)
+      }
+    } catch (err) {
+      toast.error(`Error: ${err.message}`);
     }
   };
 

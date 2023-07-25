@@ -1,10 +1,15 @@
 /* eslint default-case: 0 */
 import { reportTypes } from "../utils/constants";
+import { getPaymentHeader } from "./getPaymentHeaders";
 
-export const checkPhisherStatus = async (type, id, latestBlock, isPhisher, headers) => {
+export const checkPhisherStatus = async (type, id, latestBlock, isPhisher, signedVoucher) => {
   let codedName = sanitizeValue(type, id.toLowerCase());
 
   try {
+    const headers = {
+      'X-Payment': getPaymentHeader(signedVoucher)
+    }
+
     const { data: latestBlockData } = await latestBlock({}, headers);
     const { data } = await isPhisher(
       {
