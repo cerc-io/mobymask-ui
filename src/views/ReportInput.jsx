@@ -15,7 +15,7 @@ import ReportInputInfo from "../views/ReportInputInfo";
 import config from "../utils/config.json";
 import search_icon from "../assets/search.png";
 import useSignedEmptyVoucher from "../hooks/useSignedEmptyVoucher";
-import usePayAndGetSignedVoucher from "../hooks/usePayAndGetSignedVoucher";
+import usePaymentGenerator from "../hooks/usePaymentGenerator";
 import { watcherPaymentChannelIdAtom } from "../atoms/watcherPaymentChannelIdAtom";
 const { address } = config;
 
@@ -58,7 +58,7 @@ function ReportInput({ isMemberCheck = false }) {
   });
 
   let signedVoucher = useSignedEmptyVoucher();
-  const payAndGetSignedVoucher = usePayAndGetSignedVoucher();
+  const paymentGenerator = usePaymentGenerator();
 
   async function submitFrom() {
     if (!inputRef.current.value) return;
@@ -66,7 +66,7 @@ function ReportInput({ isMemberCheck = false }) {
 
     try {
       if (window.PAY_FOR_GQL_REQUESTS && watcherPaymentChannelId) {
-        signedVoucher = await payAndGetSignedVoucher();
+        signedVoucher = await paymentGenerator();
       }
 
       if (isMemberCheck) {

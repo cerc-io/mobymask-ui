@@ -10,7 +10,7 @@ export default async function reportPhishers({
   provider,
   invitation,
   isPhisher,
-  payAndGetHeaders,
+  paymentGenerator,
   peer = null,
 }
 ) {
@@ -57,7 +57,7 @@ export default async function reportPhishers({
   });
 
   if (peer) {
-    const payment = await payAndGetHeaders()
+    const payment = await paymentGenerator()
 
     // Broadcast invocations on the network
     return peer.floodMessage(

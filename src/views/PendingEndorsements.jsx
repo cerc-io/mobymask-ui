@@ -23,7 +23,7 @@ import IS_MEMBER_GRAPHQL from "../queries/isMember";
 import { gql } from "@apollo/client";
 import useLazyQuery from "../hooks/useLazyQuery";
 import { checkMemberStatus, endorseHandle } from "../utils/checkMemberStatus";
-import usePayAndGetSignedVoucher from "../hooks/usePayAndGetSignedVoucher";
+import usePaymentGenerator from "../hooks/usePaymentGenerator";
 
 const config = require("../utils/config.json");
 const { chainId, address } = config;
@@ -105,13 +105,13 @@ function PendingEndorsements() {
     setStoredNotMembers(newStoredNotMembers);
   };
 
-  const payAndGetSignedVoucher = usePayAndGetSignedVoucher();
+  const paymentGenerator = usePaymentGenerator();
 
   const checkInfo = async () => {
     if (!inputRef.current.value) return;
 
     try {
-      const signedVoucher = await payAndGetSignedVoucher();
+      const signedVoucher = await paymentGenerator();
 
       const result = await checkMemberStatus(
         inputRef.current.value,

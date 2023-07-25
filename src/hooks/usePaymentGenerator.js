@@ -7,7 +7,7 @@ import { nitroAtom } from "../atoms/nitroAtom";
 import { watcherPaymentChannelIdAtom } from "../atoms/watcherPaymentChannelIdAtom";
 import { payAmountAtom } from "../atoms/payAmountAtom";
 
-export default function usePayAndGetSignedVoucher() {
+export default function usePaymentGenerator() {
   const [nitro] = useAtom(nitroAtom);
   const [watcherPaymentChannelId] = useAtom(watcherPaymentChannelIdAtom);
   const [payAmount] = useAtom(payAmountAtom);

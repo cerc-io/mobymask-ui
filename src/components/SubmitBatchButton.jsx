@@ -7,7 +7,7 @@ import Button from "./Button";
 import reportMembers from "../utils/reportMembers";
 import reportPhishers from "../utils/reportPhishers";
 import { reportTypes } from "../utils/constants";
-import usePayAndGetSignedVoucher from "../hooks/usePayAndGetSignedVoucher";
+import usePaymentGenerator from "../hooks/usePaymentGenerator";
 
 const { ethers } = require("ethers");
 function SubmitBatchButton(props) {
@@ -16,7 +16,7 @@ function SubmitBatchButton(props) {
 
   const reportOptions = {
     invitation,
-    payAndGetHeaders: usePayAndGetSignedVoucher()
+    paymentGenerator: usePaymentGenerator()
   };
 
   if (p2p) {

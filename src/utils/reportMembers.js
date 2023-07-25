@@ -10,7 +10,7 @@ export default async function reportMembers({
   provider,
   invitation,
   isMember,
-  payAndGetHeaders,
+  paymentGenerator,
   peer = null
 }) {
   const { signedDelegations } = invitation;
@@ -57,7 +57,7 @@ export default async function reportMembers({
   });
 
   if (peer) {
-    const payment = await payAndGetHeaders()
+    const payment = await paymentGenerator()
 
     // Broadcast invocations on the network
     return peer.floodMessage(
