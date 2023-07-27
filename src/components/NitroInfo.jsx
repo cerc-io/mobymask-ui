@@ -12,7 +12,6 @@ import { utils } from "@cerc-io/nitro-client-browser";
 import { JSONbigNative } from '@cerc-io/nitro-util';
 
 import contractAddresses from "../utils/nitro-addresses.json";
-import { nitroKeyAtom } from '../atoms/nitroKeyAtom';
 import { nitroAtom } from '../atoms/nitroAtom';
 import { payAmountAtom } from '../atoms/payAmountAtom';
 import { watcherPaymentChannelIdAtom } from '../atoms/watcherPaymentChannelIdAtom';
@@ -50,7 +49,6 @@ window.out = (jsonObject) => {
 
 export function NitroInfo ({ provider, peer }) {
   const [nitro, setNitro] = useAtom(nitroAtom);
-  const [nitroKey] = useAtom(nitroKeyAtom);
   const [knownClients, setKnownClients] = useState([]);
   const [ledgerChannels, setLedgerChannels] = useState(new Map());
   const [paymentChannels, setPaymentChannels] = useState(new Map());
@@ -66,6 +64,10 @@ export function NitroInfo ({ provider, peer }) {
       return acc;
     }, new Map())
   }, [ledgerChannels]);
+
+  const isLedgerChannelAvailable = useMemo(() => {
+    return Array.from(ledgerChannels.values()).some(channel => channel.status === 'Open')
+  }, [ledgerChannels])
 
   const clientPaymentChannelsMap = useMemo(() => {
     return Array.from(paymentChannels.values()).reduce((acc, channel) => {
@@ -94,20 +96,21 @@ export function NitroInfo ({ provider, peer }) {
   }, [knownClients, clientPaymentChannelsMap, setWatcherPaymentChannelId])
 
   useEffect(() => {
-    if (!nitroKey || !provider || !peer || nitro) {
+    if (!provider || !peer || nitro) {
       return;
     }
 
     const setupClient = async () => {
       const loading = toast.loading("Starting Nitro client...");
       const ethersProvider = new ethers.providers.Web3Provider(provider, "any");
+      const accountAddress = await ethersProvider.getSigner().getAddress()
 
       const nitro = await utils.Nitro.setupClientWithProvider(
-        nitroKey,
         ethersProvider,
+        process.env.REACT_APP_SNAP_ORIGIN,
         contractAddresses,
         peer,
-        `${nitroKey}-db`
+        `${accountAddress}-db`
       );
 
       setNitro(nitro);
@@ -118,7 +121,7 @@ export function NitroInfo ({ provider, peer }) {
     }
 
     setupClient();
-  }, [provider, nitroKey, peer, nitro, setNitro]);
+  }, [provider, peer, nitro, setNitro]);
 
   const refreshInfo = useCallback(async () => {
     const channels = await nitro.getAllLedgerChannels();
@@ -277,7 +280,7 @@ export function NitroInfo ({ provider, peer }) {
                       )}
                     </Box>
                     <Box display="flex">
-                      {Boolean(ledgerChannels.size) && (
+                      {isLedgerChannelAvailable && (
                         // TODO: Try creating payment channels using intermediaries
                         <>
                           <Button

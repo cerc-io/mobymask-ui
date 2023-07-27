@@ -100,7 +100,7 @@ function ReportInput({ isMemberCheck = false }) {
     } catch (err) {
       if (err.message === 'Response not successful: Received status code 402') {
         // TODO: Fix error handling to show message from server
-        toast.error(`Error: Payment voucher not received`);
+        toast.error(`Error: Payment required`);
       } else {
         toast.error(`Error: ${err.message}`);
       }
