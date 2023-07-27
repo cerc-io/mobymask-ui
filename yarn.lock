@@ -1211,14 +1211,14 @@
     wherearewe "^2.0.0"
     xsalsa20 "^1.1.0"
 
-"@cerc-io/nitro-client-browser@^0.1.4":
-  version "0.1.4"
-  resolved "https://git.vdb.to/api/packages/cerc-io/npm/%40cerc-io%2Fnitro-client-browser/-/0.1.4/nitro-client-browser-0.1.4.tgz#730c4039e9cbf307c5fe45767c3d44e797604f25"
-  integrity sha512-3t48SFXslwJFYjHDfoqYzwfAbd9l+Tm8qUhdMZ0YsYJON7PNWzjSAYs1IjAn9H7gVqGBmcaPvnmkv1z0+4+Epg==
+"@cerc-io/nitro-client-browser@^0.1.6":
+  version "0.1.6"
+  resolved "https://git.vdb.to/api/packages/cerc-io/npm/%40cerc-io%2Fnitro-client-browser/-/0.1.6/nitro-client-browser-0.1.6.tgz#c0c0b7804ee388f124b7037e5166e76d2ded5771"
+  integrity sha512-b7H5QD5xz23Hqb1DSGIQXjG1hfXgkAHqD1IV+QiWKMnT2klnMZ6UX50zCpafm6+umWIta95QrWuCkGjJArMHwg==
   dependencies:
     "@cerc-io/libp2p" "0.42.2-laconic-0.1.3"
-    "@cerc-io/nitro-util" "^0.1.4"
-    "@cerc-io/peer" "^0.2.46"
+    "@cerc-io/nitro-util" "^0.1.6"
+    "@cerc-io/peer" "^0.2.49"
     "@cerc-io/ts-channel" "1.0.3-ts-nitro-0.1.1"
     "@libp2p/crypto" "^1.0.4"
     "@libp2p/tcp" "^6.0.0"
@@ -1234,11 +1234,12 @@
     promjs "^0.4.2"
     uint8arrays "^4.0.3"
 
-"@cerc-io/nitro-util@^0.1.4":
-  version "0.1.4"
-  resolved "https://git.vdb.to/api/packages/cerc-io/npm/%40cerc-io%2Fnitro-util/-/0.1.4/nitro-util-0.1.4.tgz#101f61692050f0ae850b0a0a12e56252f3ddc5a8"
-  integrity sha512-dqzFA5czCxo/yyAhHMplzRzTyzf52WpU8U+ntZ9zFIfrWPHvHHyDY4YyjA2yVQEWfcyyIZ0GTzf6wDb/kP8dKg==
+"@cerc-io/nitro-util@^0.1.6":
+  version "0.1.6"
+  resolved "https://git.vdb.to/api/packages/cerc-io/npm/%40cerc-io%2Fnitro-util/-/0.1.6/nitro-util-0.1.6.tgz#7cdf6ee37c21c7863eea3332e84f9450b7534bf3"
+  integrity sha512-moalyL8uG4dvUT1NleHqPXnOSqeto8VxFnyW+nRoTkkjmyrn8cb5XF0nlEDxf2gR/pBzNeGv1NdYwhVYv5rkTA==
   dependencies:
+    "@statechannels/nitro-protocol" "^2.0.0-alpha.4"
     assert "^2.0.0"
     debug "^4.3.4"
     ethers "^5.7.2"
@@ -1276,10 +1277,10 @@
     unique-names-generator "^4.7.1"
     yargs "^17.0.1"
 
-"@cerc-io/peer@^0.2.46":
-  version "0.2.46"
-  resolved "https://git.vdb.to/api/packages/cerc-io/npm/%40cerc-io%2Fpeer/-/0.2.46/peer-0.2.46.tgz#b317b35f1e302d8edc660adafbb3d59fcacc2d2a"
-  integrity sha512-cd1/b+NlBNYE7H1Cec+Re6RIa1kV0PXt8Ac5oU+uOFHVkKyWqV0MwwdsswkQ4cfkdJ0dgvHmZca7Zqbeu680uA==
+"@cerc-io/peer@^0.2.47":
+  version "0.2.47"
+  resolved "https://git.vdb.to/api/packages/cerc-io/npm/%40cerc-io%2Fpeer/-/0.2.47/peer-0.2.47.tgz#0f8bf34136feb2c9f89d6f7885823645bbea4a19"
+  integrity sha512-tXhxS8QRvz1dpdLwl43QRba1Z73ltIvbUF1CJc/Zq9k+mnzpMQUzdHfEcIDjDfympGsytrPAMcoKjpqpK1wETw==
   dependencies:
     "@cerc-io/libp2p" "0.42.2-laconic-0.1.3"
     "@cerc-io/prometheus-metrics" "1.1.4"
@@ -1305,15 +1306,14 @@
     unique-names-generator "^4.7.1"
     yargs "^17.0.1"
 
-"@cerc-io/peer@^0.2.47":
-  version "0.2.47"
-  resolved "https://git.vdb.to/api/packages/cerc-io/npm/%40cerc-io%2Fpeer/-/0.2.47/peer-0.2.47.tgz#0f8bf34136feb2c9f89d6f7885823645bbea4a19"
-  integrity sha512-tXhxS8QRvz1dpdLwl43QRba1Z73ltIvbUF1CJc/Zq9k+mnzpMQUzdHfEcIDjDfympGsytrPAMcoKjpqpK1wETw==
+"@cerc-io/peer@^0.2.49":
+  version "0.2.50"
+  resolved "https://git.vdb.to/api/packages/cerc-io/npm/%40cerc-io%2Fpeer/-/0.2.50/peer-0.2.50.tgz#79c480ae24e59b68ee1ac724dc90ce706b85a7d0"
+  integrity sha512-/+rv7iu5oxMKW+t+BisyMJmF8zAFIPVDRIxZ8gpzVvjNUJBKmxKZsjckQoxEoqdEYKBwc8nNxzSs6Y9qG4pnGg==
   dependencies:
     "@cerc-io/libp2p" "0.42.2-laconic-0.1.3"
     "@cerc-io/prometheus-metrics" "1.1.4"
     "@chainsafe/libp2p-noise" "^11.0.0"
-    "@chainsafe/libp2p-yamux" "^4.0.2"
     "@libp2p/floodsub" "^6.0.0"
     "@libp2p/mplex" "^7.1.1"
     "@libp2p/peer-id-factory" "^2.0.0"
