@@ -1211,13 +1211,13 @@
     wherearewe "^2.0.0"
     xsalsa20 "^1.1.0"
 
-"@cerc-io/nitro-client-browser@^0.1.3":
-  version "0.1.3"
-  resolved "https://git.vdb.to/api/packages/cerc-io/npm/%40cerc-io%2Fnitro-client-browser/-/0.1.3/nitro-client-browser-0.1.3.tgz#9a687112a5ec2d7dd61a9ba685829d0f92c239e0"
-  integrity sha512-Pk9hfAOpGzW7Sy1EadrAN0j1xoFZjlwxW8cG2T895vgVWUjT+xEjkJ9DALKW3QMzF4X20oDVpOhscqPeUOASnQ==
+"@cerc-io/nitro-client-browser@^0.1.4":
+  version "0.1.4"
+  resolved "https://git.vdb.to/api/packages/cerc-io/npm/%40cerc-io%2Fnitro-client-browser/-/0.1.4/nitro-client-browser-0.1.4.tgz#730c4039e9cbf307c5fe45767c3d44e797604f25"
+  integrity sha512-3t48SFXslwJFYjHDfoqYzwfAbd9l+Tm8qUhdMZ0YsYJON7PNWzjSAYs1IjAn9H7gVqGBmcaPvnmkv1z0+4+Epg==
   dependencies:
     "@cerc-io/libp2p" "0.42.2-laconic-0.1.3"
-    "@cerc-io/nitro-util" "^0.1.3"
+    "@cerc-io/nitro-util" "^0.1.4"
     "@cerc-io/peer" "^0.2.46"
     "@cerc-io/ts-channel" "1.0.3-ts-nitro-0.1.1"
     "@libp2p/crypto" "^1.0.4"
@@ -1234,10 +1234,10 @@
     promjs "^0.4.2"
     uint8arrays "^4.0.3"
 
-"@cerc-io/nitro-util@^0.1.3":
-  version "0.1.3"
-  resolved "https://git.vdb.to/api/packages/cerc-io/npm/%40cerc-io%2Fnitro-util/-/0.1.3/nitro-util-0.1.3.tgz#1c640221c3936203e8ccf492e6374b50502d60d3"
-  integrity sha512-NTg8RO/3bzGLZie3pavcJJzLeL9gI1RLxwEMVBtRzsZfniDfsu7CTasoEX+hKgyBiZstEoMtGbfpwVmM1IEQBA==
+"@cerc-io/nitro-util@^0.1.4":
+  version "0.1.4"
+  resolved "https://git.vdb.to/api/packages/cerc-io/npm/%40cerc-io%2Fnitro-util/-/0.1.4/nitro-util-0.1.4.tgz#101f61692050f0ae850b0a0a12e56252f3ddc5a8"
+  integrity sha512-dqzFA5czCxo/yyAhHMplzRzTyzf52WpU8U+ntZ9zFIfrWPHvHHyDY4YyjA2yVQEWfcyyIZ0GTzf6wDb/kP8dKg==
   dependencies:
     assert "^2.0.0"
     debug "^4.3.4"

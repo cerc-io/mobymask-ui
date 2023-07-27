@@ -67,6 +67,10 @@ export function NitroInfo ({ provider, peer }) {
     }, new Map())
   }, [ledgerChannels]);
 
+  const isLedgerChannelAvailable = useMemo(() => {
+    return Array.from(ledgerChannels.values()).some(channel => channel.status === 'Complete')
+  }, [ledgerChannels])
+
   const clientPaymentChannelsMap = useMemo(() => {
     return Array.from(paymentChannels.values()).reduce((acc, channel) => {
       const clientChannels = acc.get(channel.balance.payer) ?? [];
@@ -277,7 +281,7 @@ export function NitroInfo ({ provider, peer }) {
                       )}
                     </Box>
                     <Box display="flex">
-                      {Boolean(ledgerChannels.size) && (
+                      {isLedgerChannelAvailable && (
                         // TODO: Try creating payment channels using intermediaries
                         <>
                           <Button

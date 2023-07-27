@@ -159,7 +159,10 @@ export default function DebugPanel({ messages, nitro }) {
               <LazyConnect
                 actionName="setup Nitro payment channels"
                 chainId={chainId}
-                opts={{ needsAccountConnected: true }}
+                opts={{
+                  needsAccountConnected: true,
+                  needsSnapConnected: true
+                }}
               >
                 <NitroInfo peer={peer}/>
               </LazyConnect>

@@ -7,15 +7,19 @@ import Button from "../components/Button";
 import { useAtom } from "jotai";
 import { providerAtom } from "../atoms/providerAtom";
 import { Typography } from "@mui/material";
+import useSnap from "../hooks/useSnap";
+import { connectSnap, getSnap, shouldDisplayReconnectButton } from "../utils/snap";
+import { ConnectButton, InstallFlaskButton, ReconnectButton } from "../components/SnapButtons";
 
 export default function LazyConnect(props) {
   const { actionName, chainId } = props;
   let { opts = {} } = props;
-  const { needsAccountConnected = true } = opts;
+  const { needsAccountConnected = true, needsSnapConnected = false } = opts;
   const [provider, setInjectedProvider] = useAtom(providerAtom);
   const [accounts, setAccounts] = useState([]);
   const [userChainId, setUserChainId] = useState(false);
   const [, setLoading] = useState(false);
+  const [snapState, setSnapState] = useSnap(provider);
 
   if (!provider && MetaMaskOnboarding.isMetaMaskInstalled()) {
     setInjectedProvider(window.ethereum);
@@ -69,7 +73,9 @@ export default function LazyConnect(props) {
   const needsToSwitchChain = Number(userChainId) !== chainId;
   const needsToConnectAccount =
     needsAccountConnected && (!accounts || accounts.length === 0);
-  const requiresAction = needsToSwitchChain || needsToConnectAccount;
+  console.log()
+  const needsToConnectSnap = needsSnapConnected && !snapState.installedSnap;
+  const requiresAction = needsToSwitchChain || needsToConnectAccount || needsToConnectSnap;
 
   if (!MetaMaskOnboarding.isMetaMaskInstalled()) {
     return (
@@ -108,6 +114,9 @@ export default function LazyConnect(props) {
           needsAccountConnected,
           actionName,
           accounts,
+          snapState,
+          setSnapState,
+          needsToConnectSnap
         })}
       </Box>
     );
@@ -138,6 +147,9 @@ function createChecklist(checklistOpts) {
     needsToConnectAccount,
     actionName,
     hasWallet,
+    snapState,
+    setSnapState,
+    needsToConnectSnap
   } = checklistOpts;
 
   const needsToSwitchChain = !!chainId && Number(userChainId) !== chainId;
@@ -188,6 +200,18 @@ function createChecklist(checklistOpts) {
     return labelText;
   };
 
+  const handleConnectClick = async () => {
+    try {
+      await connectSnap();
+      const installedSnap = await getSnap();
+
+      setSnapState(state => ({ ...state, installedSnap }));
+    } catch (e) {
+      console.error(e);
+      setSnapState(state => ({ ...state, error: e }));
+    }
+  };
+
   return (
     <Box marginTop="30px">
       <Typography
@@ -200,17 +224,39 @@ function createChecklist(checklistOpts) {
         You need a few things to {actionName}.
       </Typography>
       <Box textAlign="center">
-        <Button
-          marginTop="20px"
-          color="#fff"
-          borderRadius="100px"
-          padding="12px 20px"
-          style={{
-            background: "linear-gradient(90deg, #334FB8 0%, #1D81BE 100%)",
-          }}
-          label={loading ? "Connecting" : btnTextFn()}
-          onClick={connectWalletFn}
-        ></Button>
+        {needsToConnectAccount && (
+          <Button
+            marginTop="20px"
+            color="#fff"
+            borderRadius="100px"
+            padding="12px 20px"
+            style={{
+              background: "linear-gradient(90deg, #334FB8 0%, #1D81BE 100%)",
+            }}
+            label={loading ? "Connecting" : btnTextFn()}
+            onClick={connectWalletFn}
+          ></Button>
+        )}
+        &nbsp;
+        {needsToConnectSnap && (
+          <>
+            {!snapState.isFlask && (
+              <InstallFlaskButton />
+            )}
+            {!snapState.installedSnap && (
+              <ConnectButton
+                onClick={handleConnectClick}
+                disabled={!snapState.isFlask}
+              />
+            )}
+            {shouldDisplayReconnectButton(snapState.installedSnap) && (
+              <ReconnectButton
+                onClick={handleConnectClick}
+                disabled={!snapState.installedSnap}
+              />
+            )}
+          </>
+        )}
       </Box>
     </Box>
   );
