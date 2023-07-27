@@ -73,7 +73,6 @@ export default function LazyConnect(props) {
   const needsToSwitchChain = Number(userChainId) !== chainId;
   const needsToConnectAccount =
     needsAccountConnected && (!accounts || accounts.length === 0);
-  console.log()
   const needsToConnectSnap = needsSnapConnected && !snapState.installedSnap;
   const requiresAction = needsToSwitchChain || needsToConnectAccount || needsToConnectSnap;
 
