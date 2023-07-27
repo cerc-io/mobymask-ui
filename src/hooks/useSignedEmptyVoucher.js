@@ -21,7 +21,7 @@ export default function useSignedEmptyVoucher() {
 
       // TODO: Setup nitro or keySigner at app start and generate empty signed voucher
       if (nitro) {
-        // Try signing with nitro
+        // Sign with signer from Nitro client
         signer = nitro.nitroSigner
       } else {
         if (nitroKey) {
