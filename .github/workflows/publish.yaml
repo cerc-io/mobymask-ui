@@ -17,7 +17,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      - run: npm install
+      - run: npm install --force
       - name: Configure git.vdb.to npm registry
         run: |
           npm config set @cerc-io:registry https://git.vdb.to/api/packages/cerc-io/npm/
