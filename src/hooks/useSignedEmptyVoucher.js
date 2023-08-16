@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAtom } from "jotai";
 
-import { signEthereumMessage, utils } from "@cerc-io/nitro-client-browser";
+import { signEthereumMessage, utils } from "@cerc-io/nitro-node-browser";
 
 import { nitroKeyAtom } from "../atoms/nitroKeyAtom";
 import { nitroAtom } from "../atoms/nitroAtom";
