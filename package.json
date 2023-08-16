@@ -10,7 +10,7 @@
     "@babel/core": "^7.16.0",
     "@cerc-io/nitro-node-browser": "^0.1.8",
     "@cerc-io/nitro-util": "^0.1.6",
-    "@cerc-io/peer": "^0.2.47",
+    "@cerc-io/peer": "^0.2.54",
     "@cerc-io/react-libp2p-debug": "^0.2.37",
     "@cerc-io/react-peer": "^0.2.37",
     "@emotion/react": "^11.10.5",
