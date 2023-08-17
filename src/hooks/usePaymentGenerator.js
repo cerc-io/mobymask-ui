@@ -1,7 +1,7 @@
 import React from "react";
 import { useAtom } from "jotai";
 
-import { utils } from "@cerc-io/nitro-client-browser";
+import { utils } from "@cerc-io/nitro-node-browser";
 
 import { nitroAtom } from "../atoms/nitroAtom";
 import { watcherPaymentChannelIdAtom } from "../atoms/watcherPaymentChannelIdAtom";

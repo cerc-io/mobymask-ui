@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import ScopedCssBaseline from '@mui/material/ScopedCssBaseline';
 import { Grid, Paper, Table, TableBody, TableCell, TableContainer, TableRow, TextField } from '@mui/material';
-import { utils } from "@cerc-io/nitro-client-browser";
+import { utils } from "@cerc-io/nitro-node-browser";
 import { JSONbigNative } from '@cerc-io/nitro-util';
 
 import contractAddresses from "../utils/nitro-addresses.json";
@@ -41,7 +41,7 @@ const STYLES = {
   }
 }
 
-window.clearClientStorage = utils.Nitro.clearClientStorage;
+window.clearNodeStorage = utils.Nitro.clearNodeStorage;
 
 window.out = (jsonObject) => {
   console.log(JSONbigNative.stringify(jsonObject, null, 2));
@@ -100,12 +100,12 @@ export function NitroInfo ({ provider, peer }) {
       return;
     }
 
-    const setupClient = async () => {
+    const setupNode = async () => {
       const loading = toast.loading("Starting Nitro client...");
       const ethersProvider = new ethers.providers.Web3Provider(provider, "any");
       const accountAddress = await ethersProvider.getSigner().getAddress()
 
-      const nitro = await utils.Nitro.setupClientWithProvider(
+      const nitro = await utils.Nitro.setupNodeWithProvider(
         ethersProvider,
         process.env.REACT_APP_SNAP_ORIGIN,
         contractAddresses,
@@ -120,7 +120,7 @@ export function NitroInfo ({ provider, peer }) {
       window.nitro = nitro;
     }
 
-    setupClient();
+    setupNode();
   }, [provider, peer, nitro, setNitro]);
 
   const refreshInfo = useCallback(async () => {
@@ -224,7 +224,7 @@ export function NitroInfo ({ provider, peer }) {
             <TableBody>
               <TableRow>
                 <TableCell size="small"><b>Client Address</b></TableCell>
-                <TableCell size="small">{nitro.client.address}</TableCell>
+                <TableCell size="small">{nitro.node.address}</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell size="small"><b>Message Service ID</b></TableCell>
