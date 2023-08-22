@@ -60,7 +60,7 @@ export function NitroInfo ({ provider, peer }) {
 
   const clientLedgerChannelMap = useMemo(() => {
     return Array.from(ledgerChannels.values()).reduce((acc, channel) => {
-      acc.set(channel.balance.hub, channel.iD);
+      acc.set(channel.balance.them, channel.iD);
       return acc;
     }, new Map())
   }, [ledgerChannels]);
