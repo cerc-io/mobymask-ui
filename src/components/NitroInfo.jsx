@@ -60,7 +60,7 @@ export function NitroInfo ({ provider, peer }) {
 
   const clientLedgerChannelMap = useMemo(() => {
     return Array.from(ledgerChannels.values()).reduce((acc, channel) => {
-      acc.set(channel.balance.hub, channel.iD);
+      acc.set(channel.balance.them, channel.iD);
       return acc;
     }, new Map())
   }, [ledgerChannels]);
@@ -149,8 +149,8 @@ export function NitroInfo ({ provider, peer }) {
     setKnownClients([]);
 
     // TODO: Add method for getting private peers
-    nitro.msgService.peers.range((_, peerInfo) => {
-      setKnownClients((prevClients) => [...prevClients, peerInfo]);
+    nitro.msgService.peers.range((address, id) => {
+      setKnownClients((prevClients) => [...prevClients, { address, id }]);
       return true;
     });
   }, [nitro]);
