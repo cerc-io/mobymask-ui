@@ -1146,10 +1146,10 @@
   resolved "https://registry.npmmirror.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@cerc-io/libp2p-util@^0.2.37":
-  version "0.2.37"
-  resolved "https://git.vdb.to/api/packages/cerc-io/npm/%40cerc-io%2Flibp2p-util/-/0.2.37/libp2p-util-0.2.37.tgz#a1fd2dc13e2b0f821740783b0e3fee5191f3508c"
-  integrity sha512-pIk2J9eP4c63h+JPpMla6QBhheN3+TRryH4rdgO7QN3iqrXUprJN//K/4dV/msA20nKZOp/I49iXtbSivZMsQg==
+"@cerc-io/libp2p-util@^0.2.38":
+  version "0.2.38"
+  resolved "https://git.vdb.to/api/packages/cerc-io/npm/%40cerc-io%2Flibp2p-util/-/0.2.38/libp2p-util-0.2.38.tgz#c7055199eb188707c3ad19bbc790924ad38ed727"
+  integrity sha512-zNsP6I3eE6ePrKOrDrNc+Lnu/3sSE7GvgeGKGYXzFKMsayoJNsmPSTJ8Nk2MQtWuWCp9Q8iKR2CIVlmjdTQb8w==
   dependencies:
     "@multiformats/multiaddr" "^11.1.4"
     assert "^2.0.0"
@@ -1296,12 +1296,12 @@
     it-stream-types "^1.0.4"
     promjs "^0.4.2"
 
-"@cerc-io/react-libp2p-debug@^0.2.37":
-  version "0.2.37"
-  resolved "https://git.vdb.to/api/packages/cerc-io/npm/%40cerc-io%2Freact-libp2p-debug/-/0.2.37/react-libp2p-debug-0.2.37.tgz#a3a06c1c4f9123925bdceb13525335a829fb2b8a"
-  integrity sha512-+8Cx/lPtyPki9Dru2+H6FFeKr5SqNrRswz12+ivlFQ04bHf5OozsSL2XAqPiwr/FuSat9juEj/LIXPZgp4DWzg==
+"@cerc-io/react-libp2p-debug@^0.2.38":
+  version "0.2.38"
+  resolved "https://git.vdb.to/api/packages/cerc-io/npm/%40cerc-io%2Freact-libp2p-debug/-/0.2.38/react-libp2p-debug-0.2.38.tgz#4483731db7b0c7867747fdd62f951180ebcc615d"
+  integrity sha512-Xhnva80fOQt1/iKGfvui3/qkZnR5aCJIFCeL44sgeriet0yK8DbWZIIpmK4Uw/eOEVCKFo8f0XAjXJQyH52LNA==
   dependencies:
-    "@cerc-io/libp2p-util" "^0.2.37"
+    "@cerc-io/libp2p-util" "^0.2.38"
     "@mui/icons-material" "^5.11.3"
     "@mui/lab" "^5.0.0-alpha.121"
     "@mui/material" "^5.11.3"
@@ -1309,14 +1309,14 @@
     lodash "^4.17.21"
     use-resize-observer "^9.1.0"
 
-"@cerc-io/react-peer@^0.2.37":
-  version "0.2.37"
-  resolved "https://git.vdb.to/api/packages/cerc-io/npm/%40cerc-io%2Freact-peer/-/0.2.37/react-peer-0.2.37.tgz#a82ce3a9afb62a0bfc73f288767a6e664497af23"
-  integrity sha512-0XVxkG91Ba+Tb1Hbgp3KeOQKaCErqje95HIJJ9OwLH+E81Tb9+mSf88MHwONAGtwe6+5LtogOH7zfoiFM61+SQ==
+"@cerc-io/react-peer@^0.2.38":
+  version "0.2.38"
+  resolved "https://git.vdb.to/api/packages/cerc-io/npm/%40cerc-io%2Freact-peer/-/0.2.38/react-peer-0.2.38.tgz#6f80987824fcddd3af6f110505e023cb3867cf7f"
+  integrity sha512-GmVKrSkRlLXz79pZ2b+7zxqQXv4YlbZzhzT5nLJt9OsIiaKJ3UAZ34PVlgC8LqcYz5rd5HUx8rMvT2CtK8QTtg==
   dependencies:
-    "@cerc-io/libp2p-util" "^0.2.37"
+    "@cerc-io/libp2p-util" "^0.2.38"
     "@cerc-io/peer" "^0.2.50"
-    "@cerc-io/react-libp2p-debug" "^0.2.37"
+    "@cerc-io/react-libp2p-debug" "^0.2.38"
     "@mui/lab" "^5.0.0-alpha.121"
     "@mui/material" "^5.11.3"
     convert "^4.10.0"
