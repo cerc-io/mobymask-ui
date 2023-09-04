@@ -1,6 +1,6 @@
 {
   "name": "@cerc-io/mobymask-ui",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "homepage": "https://mobymask.com",
   "files": [
     "build/*"
@@ -9,8 +9,8 @@
     "@apollo/client": "^3.7.2",
     "@babel/core": "^7.16.0",
     "@cerc-io/peer": "^0.2.41",
-    "@cerc-io/react-libp2p-debug": "^0.2.37",
-    "@cerc-io/react-peer": "^0.2.37",
+    "@cerc-io/react-libp2p-debug": "^0.2.38",
+    "@cerc-io/react-peer": "^0.2.38",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@metamask/eth-sig-util": "^5.0.2",
