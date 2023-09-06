@@ -5,6 +5,7 @@
   "relayNodes": [],
   "peer": {
     "denyMultiaddrs": [],
-    "enableDebugInfo": true
+    "enableDebugInfo": true,
+    "pubsub": "floodsub"
   }
 }
