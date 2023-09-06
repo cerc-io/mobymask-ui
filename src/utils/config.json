@@ -6,6 +6,6 @@
   "peer": {
     "denyMultiaddrs": [],
     "enableDebugInfo": true,
-    "pubsub": ""
+    "pubsub": "floodsub"
   }
 }
