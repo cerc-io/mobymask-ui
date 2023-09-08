@@ -1,6 +1,9 @@
 import { ethers } from "ethers";
+import config from "./config";
+
 const { abi } = require("../contracts/abi.json");
-const { address } = require("./config");
+
+const { address } = config;
 
 export default async function createRegistry(provider, readOnly = false) {
   const wallet = !readOnly && provider.getSigner();

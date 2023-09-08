@@ -19,13 +19,14 @@ import { invitationAtom } from "../atoms/invitationAtom";
 import { providerAtom } from "../atoms/providerAtom";
 import Button from "../components/Button";
 import TableList from "../components/TableList";
+import config from "../utils/config";
 
 const {
   generateUtil,
   createSignedDelegationHash,
 } = require("eth-delegatable-utils");
 
-const { chainId, address, name } = require("../utils/config");
+const { chainId, address, name } = config;
 const CONTRACT_NAME = name;
 const util = generateUtil({
   chainId,

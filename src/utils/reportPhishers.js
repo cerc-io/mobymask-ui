@@ -1,9 +1,13 @@
 import { ethers } from "ethers";
+
 import contractInfo from "./contractInfo";
 import { MESSAGE_KINDS, MOBYMASK_TOPIC } from "./constants";
+import config from '../utils/config';
+
 const { createMembership } = require("eth-delegatable-utils");
 const { abi } = require("../contracts/abi.json");
-const { address } = require("./config");
+
+const { address } = config;
 
 export default async function reportPhishers({
   phishers,

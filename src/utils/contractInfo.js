@@ -1,4 +1,6 @@
-const { chainId, address, name } = require("./config");
+import config from "./config";
+
+const { chainId, address, name } = config;
 
 const contractInfo = {
   chainId,
