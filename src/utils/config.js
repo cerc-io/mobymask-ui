@@ -23,7 +23,8 @@ const config = {
   "peer": {
     "denyMultiaddrs": [],
     "enableDebugInfo": true,
-    "pubsub": "floodsub"
+    "pubsub": "gossipsub",
+    "directPeers": []
   },
   ...hostnameConfig[hostname]
 }
