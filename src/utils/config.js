@@ -1,5 +1,6 @@
-const hostname = window.location.hostname;
+const config = require("./config.json")
 
+const hostname = window.location.hostname;
 const hostnameConfig = {
   "mobymask-ui.vercel.app": {
     address: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
@@ -18,15 +19,7 @@ const hostnameConfig = {
   },
 };
 
-const config = {
-  "relayNodes": [],
-  "peer": {
-    "denyMultiaddrs": [],
-    "enableDebugInfo": true,
-    "pubsub": "gossipsub",
-    "directPeers": []
-  },
-  ...hostnameConfig[hostname]
-}
+// Use config imported from config.json instead
+// export default config[hostname] || {};
 
 export default config;
