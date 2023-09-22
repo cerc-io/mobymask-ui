@@ -1,7 +1,12 @@
 const config = require("./config.json")
+export default config;
 
+// Use config imported from config.json instead
+
+/*
 const hostname = window.location.hostname;
-const hostnameConfig = {
+
+const config = {
   "mobymask-ui.vercel.app": {
     address: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
     name: "MobyMask",
@@ -19,7 +24,5 @@ const hostnameConfig = {
   },
 };
 
-// Use config imported from config.json instead
-// export default config[hostname] || {};
-
-export default config;
+export default config[hostname] || {};
+*/
