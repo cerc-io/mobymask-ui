@@ -11,4 +11,4 @@ export const MESSAGE_KINDS = {
   REVOKE: 'revoke'
 };
 
-export const DISPLAY_ENDORSE_MEMBERS = true;
+export const DISPLAY_ENDORSE_MEMBERS = false;
