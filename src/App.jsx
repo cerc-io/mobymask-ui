@@ -82,7 +82,7 @@ function App() {
     }
 
     // For debugging
-    if(process.env.REACT_APP_DEBUG_PEER){
+    if(process.env.REACT_APP_DEBUG_PEER === "true"){
       window.peer = peer;
     }
   }, [peer])
