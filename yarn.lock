@@ -1260,20 +1260,20 @@
     wherearewe "^2.0.0"
     xsalsa20 "^1.1.0"
 
-"@cerc-io/nitro-node-browser@^v0.1.11":
-  version "0.1.11"
-  resolved "https://git.vdb.to/api/packages/cerc-io/npm/%40cerc-io%2Fnitro-node-browser/-/0.1.11/nitro-node-browser-0.1.11.tgz#141e01ef5e9b464adaafcf0567535788cf05fafd"
-  integrity sha512-GS0PrrpOLuXnOyGwKC8/LK3RoTCV9o4Au7TsbI8cPtsU35+iD2s2xWDTdnk0HcbjWX9ssfq0eMiaJNGz/5tcTA==
+"@cerc-io/nitro-node-browser@^0.1.13":
+  version "0.1.13"
+  resolved "https://git.vdb.to/api/packages/cerc-io/npm/%40cerc-io%2Fnitro-node-browser/-/0.1.13/nitro-node-browser-0.1.13.tgz#f9e07d6c4a59e49f52020c0408d5825161a06853"
+  integrity sha512-2xnzkL4oDKFqbwQCbBrzEk/WZWX4QuGHrd1meq8IyxyTq/jno3yRIQGp7oulg8oUksKAFS2VsrnzbEr2ZssycA==
   dependencies:
     "@cerc-io/libp2p" "0.42.2-laconic-0.1.4"
-    "@cerc-io/nitro-protocol" "^2.0.0-alpha.4-ts-port-0.1.2"
-    "@cerc-io/nitro-util" "^0.1.11"
-    "@cerc-io/peer" "^0.2.58"
+    "@cerc-io/nitro-util" "^0.1.13"
+    "@cerc-io/peer" "^0.2.60"
     "@cerc-io/ts-channel" "1.0.3-ts-nitro-0.1.1"
     "@jpwilliams/waitgroup" "^2.1.0"
     "@libp2p/crypto" "^1.0.4"
     "@libp2p/tcp" "^6.0.0"
     "@multiformats/multiaddr" "^11.1.4"
+    "@statechannels/nitro-protocol" "^2.0.0-alpha.5"
     assert "^2.0.0"
     async-mutex "^0.4.0"
     debug "^4.3.4"
@@ -1286,22 +1286,13 @@
     promjs "^0.4.2"
     uint8arrays "^4.0.3"
 
-"@cerc-io/nitro-protocol@^2.0.0-alpha.4-ts-port-0.1.2":
-  version "2.0.0-alpha.4-ts-port-0.1.2"
-  resolved "https://git.vdb.to/api/packages/cerc-io/npm/%40cerc-io%2Fnitro-protocol/-/2.0.0-alpha.4-ts-port-0.1.2/nitro-protocol-2.0.0-alpha.4-ts-port-0.1.2.tgz#6d2f893f5aa08dd5550447f04967b908f3f6d469"
-  integrity sha512-Cyx2+S/6BlAzvl+LZxwLjK2Y0H01f/kvTYUktdsGHx1eTWXTzS6FQ0nTVwJkKEcO8V/Y50+dc2PwvFXvk8iG9w==
+"@cerc-io/nitro-util@^0.1.13":
+  version "0.1.13"
+  resolved "https://git.vdb.to/api/packages/cerc-io/npm/%40cerc-io%2Fnitro-util/-/0.1.13/nitro-util-0.1.13.tgz#72ad7bdbce952577f052b0f7dee5d4b2019f414f"
+  integrity sha512-jlGGaGx6YGbiNDSqQvoAFt7GcYTH2rQT2iAnnb33IglnzQvcjyczJws+jMoPPauvcw1bhG5VxKvL529otm0Nbw==
   dependencies:
-    "@openzeppelin/contracts" "^4.7.3"
-    "@statechannels/exit-format" "^0.2.0"
-    "@typechain/ethers-v5" "^9.0.0"
-
-"@cerc-io/nitro-util@^0.1.11", "@cerc-io/nitro-util@^v0.1.11":
-  version "0.1.11"
-  resolved "https://git.vdb.to/api/packages/cerc-io/npm/%40cerc-io%2Fnitro-util/-/0.1.11/nitro-util-0.1.11.tgz#73471c4366f2da8e4d0a1d222d9bb36f44cbb670"
-  integrity sha512-DG+mm8ergHuvAcWHy5PSZVsIcDCSQV5/ni2m2NfOLpR3Rz4la5oouYniEoN6z0vJKsQvb7cQ3Wxfeerk8OwcNw==
-  dependencies:
-    "@cerc-io/nitro-protocol" "^2.0.0-alpha.4-ts-port-0.1.2"
     "@cerc-io/ts-channel" "1.0.3-ts-nitro-0.1.1"
+    "@statechannels/nitro-protocol" "^2.0.0-alpha.5"
     assert "^2.0.0"
     debug "^4.3.4"
     ethers "^5.7.2"
@@ -1340,10 +1331,10 @@
     unique-names-generator "^4.7.1"
     yargs "^17.0.1"
 
-"@cerc-io/peer@^0.2.58":
-  version "0.2.58"
-  resolved "https://git.vdb.to/api/packages/cerc-io/npm/%40cerc-io%2Fpeer/-/0.2.58/peer-0.2.58.tgz#1369cd33aeba827ee13782357a872e22169fd87d"
-  integrity sha512-bAcNOTUsvAwz37Rz8jpNCYXQo6n8lX476aGvmlRN8k6gT424OBL7ZkeP4J7IfSVrJh6665cGP6bBCGED38rK0g==
+"@cerc-io/peer@^0.2.63":
+  version "0.2.63"
+  resolved "https://git.vdb.to/api/packages/cerc-io/npm/%40cerc-io%2Fpeer/-/0.2.63/peer-0.2.63.tgz#d932f1ec3181aae5add62eded567128b6faf7cc8"
+  integrity sha512-595Il+/t6ZuknVR/zm08D0uZ95YNlJvCg13zCC4GFPeFWwVFxUhK6H88/yaeXod+xCSf1nmtuq24mq3e4QFEAA==
   dependencies:
     "@cerc-io/libp2p" "^0.42.2-laconic-0.1.4"
     "@cerc-io/prometheus-metrics" "1.1.4"
@@ -3702,6 +3693,15 @@
     "@openzeppelin/contracts" "4.6.0"
     ethers "^5.1.4"
     lodash "^4.17.21"
+
+"@statechannels/nitro-protocol@^2.0.0-alpha.5":
+  version "2.0.0-alpha.5"
+  resolved "https://registry.yarnpkg.com/@statechannels/nitro-protocol/-/nitro-protocol-2.0.0-alpha.5.tgz#9b51ee8170de9f51816144c06f568199ccab3237"
+  integrity sha512-b4rlq0D97MidlKL3MxOsn1Rtl5VzH26xyvVSe8iZXapUdpYfsIH8Nj5PqVki7drFJWVYjVTjwDwc5pvRW8jNbg==
+  dependencies:
+    "@openzeppelin/contracts" "^4.7.3"
+    "@statechannels/exit-format" "^0.2.0"
+    "@typechain/ethers-v5" "^9.0.0"
 
 "@surma/rollup-plugin-off-main-thread@^2.2.3":
   version "2.2.3"
