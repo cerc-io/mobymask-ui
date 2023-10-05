@@ -1331,10 +1331,10 @@
     unique-names-generator "^4.7.1"
     yargs "^17.0.1"
 
-"@cerc-io/peer@^0.2.62":
-  version "0.2.62"
-  resolved "https://git.vdb.to/api/packages/cerc-io/npm/%40cerc-io%2Fpeer/-/0.2.62/peer-0.2.62.tgz#680be1d62156aab29f89d40047515836bb0f8ee7"
-  integrity sha512-22wjLUSAQFh+a9UzWyRfRvOraMf02zgI1uM4u+vIkfb2gYoUGnwH/IQD/huShS7c+nkiwsjsq6m+vXAh2TQHuA==
+"@cerc-io/peer@^0.2.63":
+  version "0.2.63"
+  resolved "https://git.vdb.to/api/packages/cerc-io/npm/%40cerc-io%2Fpeer/-/0.2.63/peer-0.2.63.tgz#d932f1ec3181aae5add62eded567128b6faf7cc8"
+  integrity sha512-595Il+/t6ZuknVR/zm08D0uZ95YNlJvCg13zCC4GFPeFWwVFxUhK6H88/yaeXod+xCSf1nmtuq24mq3e4QFEAA==
   dependencies:
     "@cerc-io/libp2p" "^0.42.2-laconic-0.1.4"
     "@cerc-io/prometheus-metrics" "1.1.4"
