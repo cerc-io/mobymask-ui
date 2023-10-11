@@ -110,6 +110,7 @@ export function NitroInfo ({ provider, peer }) {
         process.env.REACT_APP_SNAP_ORIGIN,
         contractAddresses,
         peer,
+        true,
         `${accountAddress}-db`
       );
 
