@@ -1260,20 +1260,20 @@
     wherearewe "^2.0.0"
     xsalsa20 "^1.1.0"
 
-"@cerc-io/nitro-node-browser@^0.1.14":
-  version "0.1.14"
-  resolved "https://git.vdb.to/api/packages/cerc-io/npm/%40cerc-io%2Fnitro-node-browser/-/0.1.14/nitro-node-browser-0.1.14.tgz#4da23c8133482d7e93e876f4da80854e786a3e9a"
-  integrity sha512-CPU4qAKrZ41L3ccDZAiOkIwGW+bpHAknI834I8AWE60IBhH0oibeZOGS2z3q+0PsAOq0FWNt0J0thRQ/gIVQ9A==
+"@cerc-io/nitro-node-browser@^0.1.15":
+  version "0.1.15"
+  resolved "https://git.vdb.to/api/packages/cerc-io/npm/%40cerc-io%2Fnitro-node-browser/-/0.1.15/nitro-node-browser-0.1.15.tgz#2eadefa02476e6b4ac32b269fd9e32ff14f41333"
+  integrity sha512-+xqKVEszZz4h+4FWeseBgxdRLdIurB4lpIJmrAZoTWHgMm2vlXSmxJX3XQ7qm7oPpKuzPy86ULolS/i19YScCA==
   dependencies:
     "@cerc-io/libp2p" "0.42.2-laconic-0.1.4"
-    "@cerc-io/nitro-util" "^0.1.14"
-    "@cerc-io/peer" "^0.2.60"
+    "@cerc-io/nitro-util" "^0.1.15"
+    "@cerc-io/peer" "^0.2.65"
     "@cerc-io/ts-channel" "1.0.3-ts-nitro-0.1.1"
     "@jpwilliams/waitgroup" "^2.1.0"
     "@libp2p/crypto" "^1.0.4"
     "@libp2p/tcp" "^6.0.0"
     "@multiformats/multiaddr" "^11.1.4"
-    "@statechannels/nitro-protocol" "^2.0.0-alpha.5"
+    "@statechannels/nitro-protocol" "^2.0.1-alpha.5"
     assert "^2.0.0"
     async-mutex "^0.4.0"
     debug "^4.3.4"
@@ -1286,13 +1286,13 @@
     promjs "^0.4.2"
     uint8arrays "^4.0.3"
 
-"@cerc-io/nitro-util@^0.1.14":
-  version "0.1.14"
-  resolved "https://git.vdb.to/api/packages/cerc-io/npm/%40cerc-io%2Fnitro-util/-/0.1.14/nitro-util-0.1.14.tgz#6ee1b2f95c3fc64bf73f8be0a2bd4f9ede823085"
-  integrity sha512-LnrTWzSaWwH4SBY1KtsKIdDpIkH8jhR9rr3VX5w9UWbXO8vgw+SmJFiVY+xRglVE/YRJvfofyUDKuCXBGsKrgw==
+"@cerc-io/nitro-util@^0.1.15":
+  version "0.1.15"
+  resolved "https://git.vdb.to/api/packages/cerc-io/npm/%40cerc-io%2Fnitro-util/-/0.1.15/nitro-util-0.1.15.tgz#693dcb9642ebab490f9c2088fbe490fb6ecfb438"
+  integrity sha512-ByFq+Ne8dUp2omvm2Wui19r22CvXmdIJeAnN+8BhCU/B0e01zHgPhoaoQ3FX5F/NFG7+eiuFHpVdmBRq+cbnUA==
   dependencies:
     "@cerc-io/ts-channel" "1.0.3-ts-nitro-0.1.1"
-    "@statechannels/nitro-protocol" "^2.0.0-alpha.5"
+    "@statechannels/nitro-protocol" "^2.0.1-alpha.5"
     assert "^2.0.0"
     debug "^4.3.4"
     ethers "^5.7.2"
@@ -1301,7 +1301,7 @@
     lodash "^4.17.21"
     uint8arrays "^4.0.3"
 
-"@cerc-io/peer@^0.2.50", "@cerc-io/peer@^0.2.60":
+"@cerc-io/peer@^0.2.50":
   version "0.2.60"
   resolved "https://git.vdb.to/api/packages/cerc-io/npm/%40cerc-io%2Fpeer/-/0.2.60/peer-0.2.60.tgz#3f90e5174f544f2bcb549282fdb4c157f857d427"
   integrity sha512-t9nuiBUJ7a6hRSyF4PVZqy5KS6AIf5el4CX3/v/LIAXHk0fKomoAtQ/OMqJgSBScxx2kAryVShMSdKgH1klUlA==
@@ -1331,10 +1331,10 @@
     unique-names-generator "^4.7.1"
     yargs "^17.0.1"
 
-"@cerc-io/peer@^0.2.63":
-  version "0.2.63"
-  resolved "https://git.vdb.to/api/packages/cerc-io/npm/%40cerc-io%2Fpeer/-/0.2.63/peer-0.2.63.tgz#d932f1ec3181aae5add62eded567128b6faf7cc8"
-  integrity sha512-595Il+/t6ZuknVR/zm08D0uZ95YNlJvCg13zCC4GFPeFWwVFxUhK6H88/yaeXod+xCSf1nmtuq24mq3e4QFEAA==
+"@cerc-io/peer@^0.2.65", "@cerc-io/peer@^0.2.66":
+  version "0.2.66"
+  resolved "https://git.vdb.to/api/packages/cerc-io/npm/%40cerc-io%2Fpeer/-/0.2.66/peer-0.2.66.tgz#880aae568beccc4628787e1318315068981d80ec"
+  integrity sha512-R7fj9NepXrXXZIKtHpPxwSfeoaGu1Udcpqxym3cZ0dIqeJ8bapNWJcby0QHp2zvjSldSg78TX/08gyDpO9tLlQ==
   dependencies:
     "@cerc-io/libp2p" "^0.42.2-laconic-0.1.4"
     "@cerc-io/prometheus-metrics" "1.1.4"
@@ -3694,10 +3694,10 @@
     ethers "^5.1.4"
     lodash "^4.17.21"
 
-"@statechannels/nitro-protocol@^2.0.0-alpha.5":
-  version "2.0.0-alpha.5"
-  resolved "https://registry.yarnpkg.com/@statechannels/nitro-protocol/-/nitro-protocol-2.0.0-alpha.5.tgz#9b51ee8170de9f51816144c06f568199ccab3237"
-  integrity sha512-b4rlq0D97MidlKL3MxOsn1Rtl5VzH26xyvVSe8iZXapUdpYfsIH8Nj5PqVki7drFJWVYjVTjwDwc5pvRW8jNbg==
+"@statechannels/nitro-protocol@^2.0.1-alpha.5":
+  version "2.0.1-alpha.5"
+  resolved "https://registry.yarnpkg.com/@statechannels/nitro-protocol/-/nitro-protocol-2.0.1-alpha.5.tgz#3aa09dacf6780a47ff415de23123f9aafe2534ec"
+  integrity sha512-CT32i5ZlZ0Jz8mAOmywALCnS/+Cl7ntrRlJr2r3jGBkkzNBWxHWR4qXg6HTUh7xxm5tY/g/TSmsGH8/z54K/Sw==
   dependencies:
     "@openzeppelin/contracts" "^4.7.3"
     "@statechannels/exit-format" "^0.2.0"
